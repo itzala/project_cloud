@@ -1,5 +1,5 @@
 <?php
-require("../core/functions.php");
+require($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
 ob_start();
 
 generate_head("My profile");
