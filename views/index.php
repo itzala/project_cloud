@@ -21,7 +21,7 @@ generate_head("List of event");
     	</form>
     </section>
 	    <section>
-		    <table class="table table-hover table-condensed">
+		    <table class="table table-hover table-condensed table-bordered">
 			    <thead>
 			    	<tr>
 			    	<th></th>
