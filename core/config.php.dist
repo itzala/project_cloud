@@ -1,0 +1,6 @@
+<?php
+
+SERVER="server"
+PORT="port"
+DBNAME="dbname"
+USERNAME="username"
