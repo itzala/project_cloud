@@ -10,13 +10,17 @@ generate_head("Login");
                 <h1>Login</h1><hr />
     			<form class="form-horizontal" role="form">
     				<div class="form-group">
-	    				<label class="control-label" for="username">Username : </label>
+                        <div class="col-sm-2">
+	    				   <label class="control-label" for="username">Username: </label>
+                        </div>
                         <div class="col-sm-3">
 	    				   <input class="form-control input-small" type="text" id="username" name="username"/>
                         </div>
     				</div>
     				<div class="form-group">
-	    				<label class="control-label" for="password">Password : </label>
+                        <div class="col-sm-2">
+	    				   <label class="control-label" for="password">Password: </label>
+                        </div>
                         <div class="col-sm-3">
 	    				   <input class="form-control input-small" type="password" id="password" name="password"/>
                         </div>
