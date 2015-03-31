@@ -12,6 +12,9 @@ ob_start();
 generate_head("List of event");
 
 ?>
+	<nav>
+		<a href="./login.php" class="btn btn-primary">Log in</a>
+	</nav>
     <section>
     	<form>
     		

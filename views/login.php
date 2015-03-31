@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Calendar - Login</title>
-            <!--<link rel="stylesheet" href="" />-->
-    </head>
-    <body> 
+<?php
+require("../core/functions.php");
+ob_start();
+
+generate_head("Login");
+
+?>
     	<section>
     		<div>
     			<form>
@@ -18,8 +17,11 @@
 	    				<input type="password" id="password" name="password"/>
     				</div>
     				<input type="submit" class="btn btn-default" value="Log in"/>
+                    <a href="./register.php" class="btn btn-default">Register</a>
     			</form>
     		</div>
-    	</section>       
-    </body>
-</html>
+    	</section>
+        <a href="./" class="btn btn-info">Back to index</a>
+<?php
+generate_footer();
+ob_end_flush();
