@@ -9,7 +9,9 @@ $nb_lines = 24;//count($lines);
 
 ob_start();
 
-generate_head("List of event");
+$js = array("js/event");
+
+generate_head("List of event", $js);
 
 ?>
 	<nav>
@@ -17,11 +19,11 @@ generate_head("List of event");
 	</nav>
     <section>
     	<form>
-    		
+    		<a href="./create_event.php" class="btn btn-default">Create a new event</a>
     	</form>
     </section>
 	    <section>
-		    <table class="table table-hover table-condensed table-bordered">
+		    <table id="event-table" class="table table-hover table-condensed table-bordered">
 			    <thead>
 			    	<tr>
 			    	<th></th>
