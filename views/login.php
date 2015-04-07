@@ -2,6 +2,16 @@
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
 
 session_start();
+
+if (isset($_POST) && !empty($_POST))
+{
+    var_dump($_POST);
+
+    
+    
+    die();
+}
+
 ob_start();
 
 generate_head("Login");
@@ -9,7 +19,7 @@ generate_head("Login");
     	<section>
     		<div class="col-lg-6 col-lg-offset-3">
                 <h1>Login</h1><hr />
-    			<form class="form-horizontal" role="form">
+    			<form class="form-horizontal" role="form" method="POST" action="./login.php">
     				<div class="form-group">
                         <div class="col-sm-2">
 	    				   <label class="control-label" for="username">Username: </label>

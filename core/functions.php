@@ -1,5 +1,7 @@
 <?php
 
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
+
 function generate_head($page_title, $js = NULL)
 {
 	echo "<!DOCTYPE html>
