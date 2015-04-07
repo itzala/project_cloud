@@ -22,6 +22,6 @@ $admin->setId(1);
 $toto = new User("Rolo", "Toto", "toto", "admin", "toto.rolo@calendar.en");
 $toto->setId(2);
 
-$users = array($admin->getId() => $admin, $toto->getId() => $toto);
+$users = array($admin->getUsername() => $admin, $toto->getUsername() => $toto);
 
 $events = array();

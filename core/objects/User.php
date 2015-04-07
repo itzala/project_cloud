@@ -11,17 +11,17 @@ class User
 	private $lastname;
 	private $firstname;
 	private $username;
-	private $mdp;
+	private $password;
 	private $mail;
 
-	function __construct($lastname, $firstname, $username, $mdp, $mail)
+	function __construct($lastname, $firstname, $username, $password, $mail)
 	{
 		$this->id = NULL;
 		$this->lastname = $lastname;
 		$this->firstname = $firstname;
 		$this->username = $username;
 		$this->mail = $mail;
-		$this->mdp = $mdp;
+		$this->password = $password;
 	}
 
 	/*
@@ -58,8 +58,8 @@ class User
 		return $this->username;
 	}
 
-	function getMdp(){
-		return $this->mdp;
+	function getPassword(){
+		return $this->password;
 	}
 
 	/*
@@ -86,8 +86,8 @@ class User
 		$this->mail = $this->mail;
 	}
 
-	function setMdp($mdp){
-		$this->mdp = $mdp;
+	function setPassword($password){
+		$this->password = $password;
 	}
 
 	function setUsername($username)

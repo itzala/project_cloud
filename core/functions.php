@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/config.php");
 
 function generate_head($page_title, $js = NULL)
 {
@@ -37,6 +37,13 @@ function isLogged($reverse = true){
     }else if(isset($_SESSION['user']) && !$reverse){
         header("Location:../views/error.php");
     }
+}
+
+function isRegistered($username, $password){
+    global $users;
+    if (isset($users[$username]) && $users[$username]->getPassword() == $password)
+        return $users[$username];
+    return NULL;
 }
 
 ?>
