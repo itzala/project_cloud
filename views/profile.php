@@ -13,7 +13,7 @@ ob_start();
 		Profile edit
 	</button>
 	<div class="row">
-		<div class="col-xs-1 col-sm-2 col-md-2 col-lg-6 col-lg-offset-3">
+		<div class="col-lg-6 col-lg-offset-3">
 			<h1>Profile</h1><hr />
 			<div class="form-group" id="">              
 				<div class="form-group">
@@ -36,6 +36,7 @@ ob_start();
 		</div>
 	</div>
 
+	<!-- Modal part -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modal-profil-edit" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -46,7 +47,7 @@ ob_start();
 						<h4 class="modal-title" id="modal-profil-edit">Profile edit</h4>
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-xs-1 col-sm-2 col-md-2 col-lg-6 col-lg-offset-3">
+								<div class="col-lg-6 col-lg-offset-3">
 									<form role="form" id="form_profile">
 										<div class="form-group" id="">             
 											<div class="form-group">

@@ -22,31 +22,35 @@ generate_head("List of event", $js);
     		<a href="./create_event.php" class="btn btn-default">Create a new event</a>
     	</form>
     </section>
-	    <section>
-		    <table id="event-table" class="table table-hover table-condensed table-bordered">
-			    <thead>
-			    	<tr>
-			    	<th></th>
-			    	<?php
-			    		foreach ($columns as $col) {
-			    			echo "<th>".$col."</th>\n";
-			    		}
-			    	?>
-			    	</tr>
-				</thead>
-				<tbody>
-			    	<?php
-			    	for ($i=0; $i < $nb_lines; $i++) { 
-			    		echo "<tr><th>".$i."</th>";
-			    		for ($j=0; $j < $nb_columns ; $j++) { 
-			    			echo "<td></td>";
-			    		}
-			    		echo "</tr>\n";
-			    	}
-			    	?>
-			    </tbody>
-		    </table>
-	    </section>
+    <div class="row">
+		<div class="col-lg-8 col-lg-offset-2">
+		    <section>
+			    <table id="event-table" class="table table-hover table-condensed table-bordered">
+				    <thead>
+				    	<tr>
+				    	<th></th>
+				    	<?php
+				    		foreach ($columns as $col) {
+				    			echo "<th>".$col."</th>\n";
+				    		}
+				    	?>
+				    	</tr>
+					</thead>
+					<tbody>
+				    	<?php
+				    	for ($i=0; $i < $nb_lines; $i++) { 
+				    		echo "<tr><th>".$i."</th>";
+				    		for ($j=0; $j < $nb_columns ; $j++) { 
+				    			echo "<td></td>";
+				    		}
+				    		echo "</tr>\n";
+				    	}
+				    	?>
+				    </tbody>
+			    </table>
+		    </section>
+		</div>
+	</div>
 
 <?php
 generate_footer();

@@ -12,7 +12,7 @@ generate_head("Register me");
 </nav>
 
 	<div class="row">
-		<div class="col-xs-1 col-sm-2 col-md-2 col-lg-6 col-lg-offset-3">
+		<div class="col-lg-6 col-lg-offset-3">
 				<h1>Registration</h1><hr />
 				<form role="form" id="form_registration">
 					<div class="form-group" id="">              
