@@ -29,4 +29,12 @@ function generate_footer()
 </html>";
 }
 
+function isLogged($reverse = true){
+    if (!isset($_SESSION['user']) && $reverse){
+        header("Location:../views/login.php");
+    }else if(isset($_SESSION['user']) && !$reverse){
+        header("Location:../views/error.php");
+    }
+}
+
 ?>

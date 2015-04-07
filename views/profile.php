@@ -1,10 +1,13 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
+
+session_start();
+isLogged();
 ob_start();
 
- generate_head("Register me");
-
+generate_head("Profile");
 ?>
+
 <nav>
 	<a href="./" class="btn btn-info">Back to index</a>
 </nav>

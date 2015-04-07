@@ -2,6 +2,8 @@
 
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
 
+session_start();
+//isLogged();
 $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
 $columns = $days;
 $nb_columns = count($columns);
@@ -20,6 +22,7 @@ generate_head("List of event", $js);
     <section>
     	<form>
     		<a href="./create_event.php" class="btn btn-default">Create a new event</a>
+    		<a href="./profile.php" class="btn btn-default">See profile</a>
     	</form>
     </section>
     <div class="row">

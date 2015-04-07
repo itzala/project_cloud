@@ -1,9 +1,11 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
+
+session_start();
+isLogged(false);
 ob_start();
 
 generate_head("Register me");
-
 ?>
 
 <nav>
