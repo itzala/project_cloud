@@ -21,4 +21,5 @@ function isValidUsername ($name){
 function encryptPassword($pass){
 	return md5($pass.SALT);
 }
+
 ?>
