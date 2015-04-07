@@ -13,15 +13,17 @@ class User
 	private $lastname;
 	private $firstname;
 	private $username;
+	private $mdp;
 	private $mail;
 
-	function __construct($lastname, $firstname, $username, $mail)
+	function __construct($lastname, $firstname, $username, $mdp, $mail)
 	{
 		$this->id = NULL;
 		$this->lastname = $lastname;
 		$this->firstname = $firstname;
 		$this->username = $username;
 		$this->mail = $mail;
+		$this->mdp = $mdp;
 	}
 
 	/*
@@ -53,6 +55,15 @@ class User
 		return $this->mail;
 	}
 
+	function getUsername()
+	{
+		return $this->username;
+	}
+
+	function getMdp(){
+		return $this->mdp;
+	}
+
 	/*
 	*	Setters
 	*/
@@ -64,17 +75,26 @@ class User
 
 	function setLastname()
 	{
-		$lastname = $this->lastname;
+		$this->lastname = $this->lastname;
 	}
 
 	function setFirstname()
 	{
-		$firstname = $this->firstname;
+		$this->firstname = $this->firstname;
 	}
 
 	function setMail()
 	{
-		$mail = $this->mail;
+		$this->mail = $this->mail;
+	}
+
+	function setMdp($mdp){
+		$this->mdp = $mdp;
+	}
+
+	function setUsername($username)
+	{
+		$this->username = $username;
 	}
 
 	function isValid()
