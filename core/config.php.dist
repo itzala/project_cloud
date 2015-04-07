@@ -1,7 +1,28 @@
 <?php
 
+/*
+*	Informations about database
+*/
+
 SERVER="server"
 PORT="port"
 DBNAME="dbname"
 USERNAME="username"
 SALT="salt"
+
+/*
+*	local database
+*/
+
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/objects/User.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/objects/Event.php");
+
+$admin = new User("Root", "Admin", "admin", "admin@calendar.en");
+$admin->setId(1);
+$toto = new User("Rolo", "Toto", "toto", "toto.rolo@calendar.en");
+$toto->setId(2);
+
+$users = array($admin->getId() => $admin, 
+			$toto->getId() => $toto);
+
+$events = array();
