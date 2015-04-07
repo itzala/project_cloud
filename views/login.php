@@ -25,7 +25,7 @@ generate_head("Login");
 	    				   <label class="control-label" for="username">Username: </label>
                         </div>
                         <div class="col-sm-3">
-	    				   <input class="form-control input-small" type="text" id="username" name="username"/>
+	    				   <input class="form-control input-small" type="text" id="username" name="username" autofocus/>
                         </div>
     				</div>
     				<div class="form-group">
