@@ -17,7 +17,12 @@ generate_head("List of event", $js);
 
 ?>
 	<nav>
+	<?php if (!isset($_SESSION['user'])){ ?>
 		<a href="./login.php" class="btn btn-primary">Log in</a>
+	<?php }else {?>
+		<a href="./profile.php">Logged as <?php echo $_SESSION['user']->getUsername(); ?></a>
+		<a href="./logout.php" class="btn btn-primary">Log out</a>
+		<?php }?>
 	</nav>
     <section>
     	<form>
