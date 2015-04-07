@@ -34,7 +34,7 @@ generate_head("Login");
                     </div>
                     <div class="col-sm-3">
     				   <input class="form-control input-small" type="text" id="username" name="username" 
-                       value="<?php if (isset($_POST['username'])) echo $_POST['username'];?>" />
+                       value="<?php if (isset($_POST['username'])) echo $_POST['username'];?>" autofocus/>
                     </div>
 				</div>
 				<div class="form-group">
@@ -52,6 +52,7 @@ generate_head("Login");
             <hr /><a href="./" class="btn btn-info">Back to index</a>
 		</div>
 	</section>     
+
 <?php
 generate_footer();
 ob_end_flush();

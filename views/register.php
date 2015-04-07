@@ -20,7 +20,7 @@ generate_head("Register me");
 					<div class="form-group" id="">              
 						<div class="form-group">
 						   	<label class="control-label" for="lastname">Last name</label>
-							<input class="form-control validate[optional,custom[noSpecialCaracters],length[0,20]]" type="text" placeholder="My last name" id="lastname"/>
+							<input class="form-control validate[optional,custom[noSpecialCaracters],length[0,20]]" type="text" placeholder="My last name" id="lastname" autofocus/>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="firstlastname">First name</label>
