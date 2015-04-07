@@ -1,6 +1,9 @@
 <?php
+namespace core\objects;
+
 
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/verif.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/objects/User.php");
 
 /**
 * 
@@ -15,14 +18,14 @@ class Event
 	private $date_event;
 	private $description;
 
-	function __construct($name, $owner, $date_event, $description = "", $guests = array())
+	function __construct($name, User $owner, $date_event, $description = "", $guests = array())
 	{
 		$this->id = NULL;
-		$this->$name = $name;
-		$this->$owner = $owner;
-		$this->$guests = $guests;
-		$this->$date_event = $date_event;
-		$this->$description = $description;		
+		$this->name = $name;
+		$this->owner = $owner;
+		$this->guests = $guests;
+		$this->date_event = $date_event;
+		$this->description = $description;		
 		$this->date_created = new Date();
 	}
 
@@ -79,7 +82,7 @@ class Event
 		$this->name = $name;
 	}
 
-	function setOwner($owner)
+	function setOwner(User $owner)
 	{
 		$this->owner = $owner;
 	}

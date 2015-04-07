@@ -1,6 +1,6 @@
 <?php
 
-namespace core\class;
+namespace core\objects;
 
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/verif.php");
 
