@@ -10,6 +10,7 @@ function generate_head($page_title, $js = NULL)
             <link rel=\"stylesheet\" href=\"../css/bootstrap.css\" />";
     
     echo '<script type="text/javascript" src="../js/jquery.js"></script>'."\n";
+    echo '<script type="text/javascript" src="../js/bootstrap.js"></script>'."\n";
     if (!is_null($js))
     {
     	foreach ($js as $script) {

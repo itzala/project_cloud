@@ -15,7 +15,7 @@ generate_head("Register me");
 		<div class="col-xs-1 col-sm-2 col-md-2 col-lg-6 col-lg-offset-3">
 				<h1>Registration</h1><hr />
 				<form role="form" id="form_registration">
-					<div class="form-group" id="login-form">              
+					<div class="form-group" id="">              
 						<div class="form-group">
 						   	<label class="control-label" for="lastname">Last name</label>
 							<input class="form-control validate[optional,custom[noSpecialCaracters],length[0,20]]" type="text" placeholder="My last name" id="lastname"/>
@@ -42,7 +42,7 @@ generate_head("Register me");
 						</div>
 					</div>
 					<hr /><div class="form-group">
-					<button type="submit" class="btn btn-primary">S'inscrire</button>
+					<button type="submit" class="btn btn-primary">Register</button>
 				</form>
 			</div>
 		</div>
