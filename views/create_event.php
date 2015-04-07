@@ -7,7 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/objects/Event.php");
 
 ob_start();
 
-Generator::generate_head("Create an event");
+generate_head("Create an event");
 
 ?>
 
@@ -59,6 +59,6 @@ Generator::generate_head("Create an event");
 
 <?php
 
-//Generator::generate_footer();
+generate_footer();
 
 ob_end_flush();
