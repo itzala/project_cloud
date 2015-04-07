@@ -17,7 +17,7 @@ generate_head("Register me");
 				<form role="form" id="form_registration">
 					<div class="form-group" id="login-form">              
 						<div class="form-group">
-						   	<label class="control-label" for="lastname">Lastname</label>
+						   	<label class="control-label" for="lastname">Last name</label>
 							<input class="form-control validate[optional,custom[noSpecialCaracters],length[0,20]]" type="text" placeholder="My last name" id="lastname"/>
 						</div>
 						<div class="form-group">
