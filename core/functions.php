@@ -46,4 +46,9 @@ function isRegistered($username, $password){
     return NULL;
 }
 
+function getLoggedUser()
+{
+    return $_SESSION['user'];
+}
+
 ?>
