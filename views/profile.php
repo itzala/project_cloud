@@ -6,6 +6,9 @@ isLogged();
 ob_start();
 
 generate_head("Profile");
+
+$user = getLoggedUser();
+
 ?>
 
 <nav>
@@ -21,19 +24,23 @@ generate_head("Profile");
 			<div class="form-group" id="">              
 				<div class="form-group">
 				   	<label class="control-label" for="lastname">Last name</label>
-					<input class="form-control validate[optional,custom[noSpecialCaracters],length[0,20]]" type="text" placeholder="My last name" id="lastname"/>
+					<input class="form-control validate[optional,custom[noSpecialCaracters],length[0,20]]" type="text" placeholder="My last name" id="lastname"
+					value="<?php echo $user->getLastName();?>"/>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="firstlastname">First name</label>
-					<input class="form-control" type="text" placeholder="My first name" id="firstlastname"/>
+					<input class="form-control" type="text" placeholder="My first name" id="firstlastname"
+					value="<?php echo $user->getFirstName();?>"/>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="username">Username</label>
-					<input class="form-control" type="text" placeholder="My username" id="username"/>
+					<input class="form-control" type="text" placeholder="My username" id="username"
+					value="<?php echo $user->getUserName();?>"/>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="mail">E-mail</label>
-					<input class="form-control" type="email" placeholder="My e-mail" id="mail"/>
+					<input class="form-control" type="email" placeholder="My e-mail" id="mail"
+					value="<?php echo $user->getMail();?>"/>
 				</div>
 			</div>
 		</div>
@@ -52,14 +59,18 @@ generate_head("Profile");
 							<div class="row">
 								<div class="col-lg-6 col-lg-offset-3">
 									<form role="form" id="form_profile">
-										<div class="form-group" id="">             
+										<div class="form-group" id="">
+											<div class="form-group">
+												<label class="control-label" for="pass">Current password</label>
+												<input class="form-control" type="password" placeholder="My password" id="pass" name="current_pass"/>
+											</div>
 											<div class="form-group">
 												<label class="control-label" for="pass">New password</label>
-												<input class="form-control" type="password" placeholder="My password" id="pass"/>
+												<input class="form-control" type="password" placeholder="My password" id="pass" name="new_pass"/>
 											</div>
 											<div class="form-group">
 												<label class="control-label" for="pass2">Retype password</label>
-												<input class="form-control" type="password" placeholder="My password" id="pass2"/>
+												<input class="form-control" type="password" placeholder="My password" id="pass2" name="confirm_pass"/>
 											</div>
 											<div class="form-group">
 												<label class="control-label" for="mail">New e-mail</label>
@@ -67,7 +78,7 @@ generate_head("Profile");
 											</div>
 										</div>					
 										<hr /><div class="form-group">
-										<button type="submit" class="btn btn-primary">Save changes</button>
+										<input type="submit" class="btn btn-primary" value="Save changes"
 									</form>
 								</div>
 							</div>
