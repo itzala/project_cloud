@@ -16,7 +16,7 @@ $user = getLoggedUser();
 </nav>
 
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-		Profile edit
+		Edit Profile
 	</button>
 	<div class="row">
 		<div class="col-lg-6 col-lg-offset-3">
@@ -54,7 +54,7 @@ $user = getLoggedUser();
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="modal-profil-edit">Profile edit</h4>
+						<h4 class="modal-title" id="modal-profil-edit">Edit profile</h4>
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-lg-6 col-lg-offset-3">
