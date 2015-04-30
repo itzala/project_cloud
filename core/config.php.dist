@@ -8,7 +8,15 @@ define("SERVER", "server");
 define("PORT", "port");
 define("DBNAME", "dbname");
 define("USERNAME", "username");
+define("USERPASS", "userpass");
 define("SALT", "salt");
+
+/*
+*	Configuration to manage dates
+*/
+
+define("FIRST_DAY_WEEK", "sunday");
+define("DATE_FORMAT", "d/m/Y H:i");
 
 /*
 *	local database
