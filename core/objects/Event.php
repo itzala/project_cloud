@@ -117,8 +117,7 @@ class Event
 		isEmpty($this->name);
 		isEmpty($this->date_created);
 		isEmpty($this->date_event);
-		isEmpty($this->description);
-		compareDate($this->date_created, $this->date_event);
+		isEmpty($this->description);		
 
 		return true;
 	}
