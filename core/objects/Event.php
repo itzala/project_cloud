@@ -24,7 +24,7 @@ class Event
 		$this->guests = $guests;
 		$this->date_event = $date_event;
 		$this->description = $description;		
-		$this->date_created = new Date();
+		$this->date_created = new DateTime();
 	}
 
 	/*
