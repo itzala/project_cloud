@@ -7,11 +7,7 @@ function isMailValide(){
 }
 
 function compareDate($date1, $date2){
-	if (date_diff($date1, $date2) > 0){
-		return true;
-	}else {
-		return false;
-	}
+	return (date_diff($date1, $date2) > 0);
 }
 
 function isValidUsername ($name){
