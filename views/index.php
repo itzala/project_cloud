@@ -28,7 +28,7 @@ echo "Date du jour : ".date("d/m/Y H:i")." <br/>";
 	<?php }else {?>
 		<a href="./profile.php">Logged as <?php echo $_SESSION['user']->getUsername(); ?></a>
 		<a href="./logout.php" class="btn btn-primary">Log out</a>		
-		<a href="./reset_session.php" class="btn btn-primary">Reset session</a>		
+		<a href="./reset_session.php?rd=1" class="btn btn-primary">Reset session</a>		
 		<?php }?>
 	</nav>	
     <section>
