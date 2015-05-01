@@ -70,18 +70,44 @@ function getAllUsers()
 *   Control events
 */
 
+function getEventsSession()
+{
+    return $_SESSION['events'];
+}
+
+
 function getAllEvents($filters = array())
 {
-    global $events;
-    $list = $events;
+    $list = $_SESSION['events'];
 
     return $list;
 }
 
+function getEventById($id)
+{
+    return isset($_SESSION['events'][$id]) ? $_SESSION['events'][$id] : null;
+}
+
+function loadEventsInSession()
+{
+    if (!isset($_SESSION['events']))
+    {
+        global $events;
+        $_SESSION['events'] = $events;
+    }
+}
+
 function addEvent($datas)
 {
-
-    $guests = isset($datas['event_guests']) ? $datas['event_guests'] : array();
+    $users = getAllUsers();
+    loadEventsInSession();
+    $guests = array();
+    if (isset($datas['event_guests']))
+    {
+        foreach ($datas['event_guests'] as $username) {
+            $guests[] = $users[$username];
+        }
+    }
 
     $new_event = new Event($datas['event_name'], getLoggedUser(), $datas['event_date'],
                         $datas['event_description'], $guests);
@@ -96,23 +122,8 @@ function addEvent($datas)
     return $new_event;
 }
 
-function getEventsSession()
-{
-    return $_SESSION['events'];
-}
-
-function loadEventsInSession()
-{
-    if (!isset($_SESSION['events']))
-    {
-        global $events;
-        $_SESSION['events'] = $events;
-    }
-}
-
 function removeEvent($event)
-{
-    global $events;
+{    
     if (isset($_SESSION['events'][$event->getId()]))
         unset($_SESSION['events'][$event->getId()]);
 }

@@ -9,10 +9,18 @@ isLogged();
 
 ob_start();
 generate_head("Info event");
+
+$event = getEventById(intval($_GET['e']));
+if ($event == null)
+{
+	echo "EVENT NULL<br/>";
+}
+
 ?>
 
 <nav>
 	<a href="./" class="btn btn-primary">Back to index</a>
+	<a href="./edit_event.php?e=<?php echo $event->getId()?>" class="btn btn-warning">Edit this event</a>
 </nav>
 
 <div class="row">
@@ -20,30 +28,26 @@ generate_head("Info event");
 		<h1>Create an event</h1><hr />
 			<div class="form-group">
 				<label class="control-label" for="event_name">Name : </label>
-				<input class="form-control" id="event_name" type="text" name="name_event" required />
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="date_event">Ref date : </label>
-				<input class="form-control" id="date_event" type="text" readonly value=""/>
-			</div>
+				<input class="form-control" id="event_name" type="text" name="name_event" value="<?php echo $event->getName()?>"/>
+			</div>			
 			<div class="form-group">
 				<label class="control-label" for="date_event">Date : </label>
-				<input class="form-control" id="date_event" type="text" name="date_event" required value="<?php echo $date_event?>"/>
+				<input class="form-control" id="date_event" type="text" name="date_event"value="<?php echo getFormattedDate($event->getDateEvent());?>"/>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="event_guests">Event guest : </label>
-				<select class="form-control" id="event_guests" name="event_guests" multiple="true">
+				<select class="form-control" id="event_guests" name="event_guests">
 				<?php
-				// foreach ($list_users as $username => $user) {
-				// 	echo '<option name="guests_event" value="' .$username. '">' .$username. '</option>';
-				// }
+				foreach ($event->getGuests() as $id => $guest) {
+					echo '<option name="guests_event" value="' .$id. '">' .$guest->getUsername(). '</option>';
+				}
 				?>
 				</select>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="event_description">Event description : </label>
-				<textarea class="form-control" id="event_description" name="event_description">
-				</textarea>
+				<textarea class="form-control" id="event_description"
+					name="event_description"><?php echo $event->getDescription(); ?></textarea>
 			</div>
 	</div>
 </div>

@@ -9,8 +9,8 @@ isLogged();
 
 ob_start();
 generate_head("Confirm event");
-
 $new_event = addEvent($_POST);
+
 ?>
 <section>
 		<div class="col-lg-6 col-lg-offset-3">
@@ -25,9 +25,9 @@ $new_event = addEvent($_POST);
                 <p>
                     This event is created ! Thanks :p
                 </p>
-                <!-- <p>
-                	Click <a href="./info_event.php?e="<?php echo $new_event->getId();?>> here </a> to see details
-                </p> -->
+                <p>
+                	Click <a href="./info_event.php?e=<?php echo $new_event->getId();?>"> here </a> to see details
+                </p>
             </section>
             <hr /><a href="./" class="btn btn-info">Back to index</a>
 		</div>
