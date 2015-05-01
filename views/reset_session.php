@@ -8,6 +8,11 @@ if (isset($_GET['rd'], $_SESSION['ref_date']) && $_GET['rd'])
 	setReferenceDate();
 }
 
+if (isset($_GET['e']) && $_GET['e'])
+{
+    removeAllEvents();
+}
+
 ob_start();
 
 generate_head("Login");
