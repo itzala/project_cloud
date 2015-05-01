@@ -166,5 +166,16 @@ function getDateEvent($offset_day, $time = "")
     return $date_event;
 }
 
+function connectDB(){
+require "predis/autoload.php";
+Predis\Autoloader::register();
+
+$redis = new Predis\Client(array(
+    "scheme" => "tcp",
+    "host" => DBNAME,
+    "port" => PORT,
+    "password" => USERPASS));
+echo "Connected to Redis";
+}
 
 ?>
