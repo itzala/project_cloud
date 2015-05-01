@@ -2,6 +2,10 @@
 
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/config.php");
 
+/*
+*  Structural view functions
+*/
+
 function generate_head($page_title, $js = NULL)
 {
 	echo "<!DOCTYPE html>
@@ -31,6 +35,11 @@ function generate_footer()
 </html>";
 }
 
+/*
+*   Control user
+*/
+
+
 function isLogged($reverse = true){
     if (!isset($_SESSION['user']) && $reverse){
         header("Location:../views/login.php");
@@ -40,7 +49,7 @@ function isLogged($reverse = true){
 }
 
 function isRegistered($username, $password){
-    global $users;
+    global $users;    
     if (isset($users[$username]) && $users[$username]->getPassword() == $password)
         return $users[$username];
     return NULL;
@@ -50,6 +59,72 @@ function getLoggedUser()
 {
     return $_SESSION['user'];
 }
+
+function getAllUsers()
+{
+    global $users;
+    return $users;
+}
+
+/*
+*   Control events
+*/
+
+function getAllEvents($filters = array())
+{
+    global $events;
+    $list = $events;
+
+    return $list;
+}
+
+function addEvent($datas)
+{
+
+    $guests = isset($datas['event_guests']) ? $datas['event_guests'] : array();
+
+    $new_event = new Event($datas['event_name'], getLoggedUser(), $datas['event_date'],
+                        $datas['event_description'], $guests);
+
+    $new_event->setId(count($_SESSION['events'])+1);
+    $_SESSION['events'][$new_event->getId()] = $new_event;
+
+    /*
+    * $bd->persist($new_event);
+    */
+
+    return $new_event;
+}
+
+function getEventsSession()
+{
+    return $_SESSION['events'];
+}
+
+function loadEventsInSession()
+{
+    if (!isset($_SESSION['events']))
+    {
+        global $events;
+        $_SESSION['events'] = $events;
+    }
+}
+
+function removeEvent($event)
+{
+    global $events;
+    if (isset($_SESSION['events'][$event->getId()]))
+        unset($_SESSION['events'][$event->getId()]);
+}
+
+function removeAllEvents()
+{
+    $_SESSION['events'] = array();
+}
+
+/*
+*   Manage dates
+*/
 
 function setReferenceDate($date = null)
 {
@@ -90,5 +165,6 @@ function getDateEvent($offset_day, $time = "")
     $date_event->setTime($hour, $minutes);
     return $date_event;
 }
+
 
 ?>
