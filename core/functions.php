@@ -167,9 +167,11 @@ function getDateEvent($offset_day, $time = "")
 }
 
 function connectDB(){
+// Loading the library
 require "predis/autoload.php";
 Predis\Autoloader::register();
 
+// Connect to redis
 $redis = new Predis\Client(array(
     "scheme" => "tcp",
     "host" => DBNAME,
