@@ -40,11 +40,8 @@ $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 	<?php }else {?>
 		<a href="./profile.php">Logged as <?php echo $user->getUsername(); ?></a>
 		<a href="./logout.php" class="btn btn-primary">Log out</a>		
-		<a href="./reset_session.php?rd=1&e=1" class="btn btn-primary">Reset session</a>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-		Test
-		</button>		
-		<?php }?>
+		<a href="./reset_session.php?rd=1&e=1" class="btn btn-primary">Reset session</a>	
+	<?php }?>
 	</nav>	
     <section>
     	<form>
@@ -126,26 +123,6 @@ $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 		</div>
 	</div>
 
-<!-- Modal part -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modal-profil-edit" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="modal-profil-edit">Edit profile</h4>
-						<div class="modal-body">
-							<div class="row">
-								<?php
-									connectDB();
-								?>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 <?php
 generate_footer();
 ob_end_flush();

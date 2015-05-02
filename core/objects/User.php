@@ -7,9 +7,6 @@ require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/verif.php");
 */
 class User
 {	
-
-	static $count_id = 0;
-
 	private $id;
 	private $lastname;
 	private $firstname;
@@ -19,8 +16,8 @@ class User
 
 	function __construct($lastname, $firstname, $username, $password, $mail)
 	{
-		$this->id = $count_id;
-		$count_id++;
+		static $count_id = 0;
+		$this->id = $count_id++;
 		$this->lastname = $lastname;
 		$this->firstname = $firstname;
 		$this->username = $username;
@@ -49,7 +46,7 @@ class User
 
 	function getFullname()
 	{
-		return $this->lastname + $this->firstname;
+		return $this->lastname.$this->firstname;
 	}
 
 	function getMail()
@@ -64,6 +61,11 @@ class User
 
 	function getPassword(){
 		return $this->password;
+	}
+
+	function getAll(){
+		return $this->id.$this->lastname.$this->firstname
+		.$this->username.$this->password.$this->mail;
 	}
 
 	/*

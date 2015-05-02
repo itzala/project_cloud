@@ -22,5 +22,4 @@ function isInPeriod($checked_date, $begin_date, $end_date)
 {
 	return ($begin_date <= $checked_date && $checked_date <= $end_date);
 }
-
 ?>
