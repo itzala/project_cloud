@@ -25,8 +25,8 @@ echo "<p> Date de référence : ".$ref_date_formatted."<br/></p>";
 echo "<p> Date du jour : ".date("d/m/Y H:i")." <br/></p>";
 echo "<p> Nombre d'évènements : ".$displayed_events['count']." <br/></p>";
 
-$style_event = 'style="display:inline-block; width:90%; border:1px solid black; text-align:center;"
-';
+$style_event = 'style="display:inline-block; width:90%; border:1px solid black; text-align:center;"';
+$style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 
 // echo "<pre>";
 // var_dump($displayed_events);
@@ -82,8 +82,10 @@ $style_event = 'style="display:inline-block; width:90%; border:1px solid black; 
 				    		$calendar_time = $calendar_date->format("H:i");
 				    		echo "<tr><th>".$calendar_time."</th>";
 				    		for ($j=0; $j < $nb_columns ; $j++) { ?>
-								<td data_day="<?php echo $j; ?>" data_time="<?php echo $calendar_time; ?>">
-									<!-- <a href="./create_event.php?d=<?php echo $j.'&t='.$calendar_time; ?>"  style="display:block;">Create</a> -->
+								<td>
+								 <!-- <div class="event_cell" data_day="<?php echo $j; ?>" data_time="<?php echo $calendar_time; ?>"
+								  <?php echo $style_cell?>></div> -->
+								 <!-- <a href="./create_event.php?d=<?php echo $j.'&t='.$calendar_time; ?>"  style="display:block;">Create</a> -->								
 				    			<?php 
 				    			$event_day = $calendar_date->format("d/m");
 				    			if (isset($displayed_events[$event_day][$calendar_time]))
