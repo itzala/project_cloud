@@ -28,10 +28,6 @@ echo "<p> Nombre d'évènements : ".$displayed_events['count']." <br/></p>";
 $style_event = 'style="display:inline-block; width:90%; border:1px solid black; text-align:center;"';
 $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 
-// echo "<pre>";
-// var_dump($displayed_events);
-// echo "</pre>";
-
 ?>
 	<nav>	
 	<?php if (($user = getLoggedUser()) == null){ ?>
@@ -40,8 +36,9 @@ $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 	<?php }else {?>
 		<a href="./profile.php">Logged as <?php echo $user->getUsername(); ?></a>
 		<a href="./logout.php" class="btn btn-primary">Log out</a>		
-		<a href="./reset_session.php?rd=1&e=1" class="btn btn-primary">Reset session</a>	
-	<?php }?>
+		<a href="./reset_session.php?rd=1&e=1" class="btn btn-primary">Reset session</a>
+	<?php 		
+		}?>
 	</nav>	
     <section>
     	<form>
@@ -52,8 +49,8 @@ $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
     <div class="row">
 		<div class="col-lg-8 col-lg-offset-2">
 			<ul class="pager">
-				<li class="previous"><a><span aria-hidden="true">&larr;</span> Older</a></li>
-				<li class="next"><a>Newer <span aria-hidden="true">&rarr;</span></a></li>
+				<li class="previous"><a href="change_refdate.php?d=-1"><span aria-hidden="true">&larr;</span> Older</a></li>
+				<li class="next"><a href="change_refdate.php?d=1">Newer <span aria-hidden="true">&rarr;</span></a></li>
 			</ul>
     	</div>
     </div>
@@ -80,9 +77,10 @@ $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 				    		echo "<tr><th>".$calendar_time."</th>";
 				    		for ($j=0; $j < $nb_columns ; $j++) { ?>
 								<td>
-								 <!-- <div class="event_cell" data_day="<?php echo $j; ?>" data_time="<?php echo $calendar_time; ?>"
+								 <?php /*<!-- <div class="event_cell" data_day="<?php echo $j; ?>" data_time="<?php echo $calendar_time; ?>"
 								  <?php echo $style_cell?>></div> -->
-								 <!-- <a href="./create_event.php?d=<?php echo $j.'&t='.$calendar_time; ?>"  style="display:block;">Create</a> -->								
+								 <!-- <a href="./create_event.php?d=<?php echo $j.'&t='.$calendar_time; ?>"  style="display:block;">Create</a> -->
+								 */ ?>
 				    			<?php 
 				    			$event_day = $calendar_date->format("d/m");
 				    			if (isset($displayed_events[$event_day][$calendar_time]))
@@ -107,7 +105,7 @@ $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 										</div>					    				
 					    			<?php }
 				    			}
-				    			echo '</a></td>';
+				    			echo '</td>';
 				    			$calendar_date->modify("+1 day");
 				    		}
 				    		$calendar_date = clone $ref_date;
