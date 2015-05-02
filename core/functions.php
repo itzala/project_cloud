@@ -6,14 +6,22 @@ require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/config.php");
 *  Structural view functions
 */
 
-function generate_head($page_title, $js = NULL)
+function generate_head($page_title, $js = NULL, $css = NULL)
 {
 	echo "<!DOCTYPE html>
 <html lang=\"fr\">
     <head>
         <meta charset=\"UTF-8\" />
         <title>Calendar - ".$page_title."</title>
-            <link rel=\"stylesheet\" href=\"../css/bootstrap.css\" />";
+            <link rel=\"stylesheet\" href=\"../css/bootstrap.css\" />\n";
+
+    if (!is_null($css))
+    {
+        foreach ($css as $style) {
+            $script = str_replace("css/", "", $style);
+            echo '<link rel=\"stylesheet\" href=\"../css/' .$style. '.css"/>'."\n";
+        }
+    }
     
     echo '<script type="text/javascript" src="../js/jquery.js"></script>'."\n";
     echo '<script type="text/javascript" src="../js/bootstrap.js"></script>'."\n";
@@ -36,6 +44,51 @@ function generate_footer()
 }
 
 /*
+*   Manage dates
+*/
+
+function setReferenceDate($date = null)
+{
+    if ($date == null)
+    {
+        $date = new DateTime('last '.FIRST_DAY_WEEK);        
+    }
+
+    $_SESSION['ref_date'] = $date;
+}
+
+function getReferenceDate()
+{
+    if (!isset($_SESSION['ref_date']))
+        setReferenceDate();    
+    return clone $_SESSION['ref_date'];
+}
+
+
+function getFormattedDate($date = null)
+{
+    if ($date == null)
+        $date = getReferenceDate();
+    return is_object($date) ? $date->format(DATE_FORMAT) : $date;
+}
+
+function getDateEvent($offset_day, $time = "")
+{    
+    $offset_day = intval($offset_day);
+    $items = explode(":", $time);
+    $hour = intval($items[0]);
+    $minutes = 0;
+    if (count($items) == 2)
+        $minutes = intval($items[1]);
+
+    $date_event = getReferenceDate();    
+    $date_event->modify("+" .$offset_day. "day");
+    $date_event->setTime($hour, $minutes);
+    return $date_event;
+}
+
+
+/*
 *   Control user
 */
 
@@ -56,8 +109,8 @@ function isRegistered($username, $password){
 }
 
 function getLoggedUser()
-{
-    return $_SESSION['user'];
+{    
+    return isset($_SESSION['user']) ? $_SESSION['user'] : null;
 }
 
 function getAllUsers()
@@ -72,15 +125,46 @@ function getAllUsers()
 
 function getEventsSession()
 {
-    return $_SESSION['events'];
+    return isset($_SESSION['events']) ? $_SESSION['events'] : array();
 }
 
 
 function getAllEvents($filters = array())
 {
-    $list = $_SESSION['events'];
+    $events = getEventsSession();
 
-    return $list;
+    // $lists = array();
+
+    // foreach ($events as $event) {
+
+    // }
+
+    return $events;
+}
+
+function getDisplayedEvents()
+{    
+    $owner = getLoggedUser();
+    $ref_date = getReferenceDate();
+    $end_ref_date = clone $ref_date;
+    $end_ref_date->modify("+7 days");
+    $all_events = getAllEvents();
+
+    $displayed_events = array();
+    $count_events = 0;
+
+    foreach ($all_events as $event) {
+        $date_event = $event->getDateEvent();        
+        if ($event->getOwner() == $owner && isInPeriod($date_event, $ref_date, $end_ref_date))
+        {
+            $displayed_events[$date_event->format("d/m")][$date_event->format("H:i")][] = $event;
+            $count_events++;
+        }
+    }
+
+    $displayed_events['count'] = $count_events;
+
+    return $displayed_events;
 }
 
 function getEventById($id)
@@ -133,49 +217,6 @@ function removeAllEvents()
     $_SESSION['events'] = array();
 }
 
-/*
-*   Manage dates
-*/
-
-function setReferenceDate($date = null)
-{
-    if ($date == null)
-    {
-        $date = new DateTime('last '.FIRST_DAY_WEEK);        
-    }
-
-    $_SESSION['ref_date'] = $date;
-}
-
-function getReferenceDate()
-{
-    if (!isset($_SESSION['ref_date']))
-        setReferenceDate();    
-    return clone $_SESSION['ref_date'];
-}
-
-
-function getFormattedDate($date = null)
-{
-    if ($date == null)
-        $date = getReferenceDate();
-    return is_object($date) ? $date->format(DATE_FORMAT) : $date;
-}
-
-function getDateEvent($offset_day, $time = "")
-{    
-    $offset_day = intval($offset_day);
-    $items = explode(":", $time);
-    $hour = intval($items[0]);
-    $minutes = 0;
-    if (count($items) == 2)
-        $minutes = intval($items[1]);
-
-    $date_event = getReferenceDate();    
-    $date_event->modify("+" .$offset_day. "day");
-    $date_event->setTime($hour, $minutes);
-    return $date_event;
-}
 
 function connectDB(){
 // Loading the library

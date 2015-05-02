@@ -4,29 +4,36 @@ require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
 
 session_start();
 //isLogged();
-$ref_date = getFormattedDate();
-$days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-$columns = $days;
-$nb_columns = count($columns);
+$ref_date = getReferenceDate();
+$ref_date_formatted = getFormattedDate();
+$calendar_date = clone $ref_date;
+$nb_columns = 7;//count($columns);
 $nb_lines = 24;//count($lines);
-$current_day = date('w');
 
 ob_start();
 
 $js = array("js/event");
+//$css = array("css/event");
 
 generate_head("List of event", $js);
 
 $date = new DateTime();
-echo "Date de référence : ".$ref_date."<br/>";
-echo "Date du jour : ".date("d/m/Y H:i")." <br/>";
+$current_day = date('w');
+$displayed_events = getDisplayedEvents();
+
+echo "<p> Date de référence : ".$ref_date_formatted."<br/></p>";
+echo "<p> Date du jour : ".date("d/m/Y H:i")." <br/></p>";
+echo "<p> Nombre d'évènements : ".$displayed_events['count']." <br/></p>";
+
+$style_event = 'style="display:inline-block; width:90%; border:1px solid black; text-align:center;"
+';
 
 ?>
 	<nav>	
-	<?php if (!isset($_SESSION['user'])){ ?>
+	<?php if (($user = getLoggedUser()) == null){ ?>
 		<a href="./login.php" class="btn btn-primary">Log in</a>
 	<?php }else {?>
-		<a href="./profile.php">Logged as <?php echo $_SESSION['user']->getUsername(); ?></a>
+		<a href="./profile.php">Logged as <?php echo $user->getUsername(); ?></a>
 		<a href="./logout.php" class="btn btn-primary">Log out</a>		
 		<a href="./reset_session.php?rd=1&e=1" class="btn btn-primary">Reset session</a>		
 		<?php }?>
@@ -39,32 +46,67 @@ echo "Date du jour : ".date("d/m/Y H:i")." <br/>";
     </section>
     <div class="row">
 		<div class="col-lg-8 col-lg-offset-2">
+			<ul class="pager">
+				<li class="previous"><a><span aria-hidden="true">&larr;</span> Older</a></li>
+				<li class="next"><a>Newer <span aria-hidden="true">&rarr;</span></a></li>
+			</ul>
+    	</div>
+    </div>
+    <div class="row">
+		<div class="col-lg-8 col-lg-offset-2">
 		    <section>
 			    <table id="event-table" class="table table-hover table-condensed table-bordered">
 				    <thead>
 				    	<tr>
 				    	<th></th>
 				    	<?php
-				    		foreach ($columns as $i => $col) {
-				    			echo "<th ";
-				    			if ($i < $current_day)
-				    				$day = date("d/m", strtotime("last ".$col));
-				    			else if ($i > $current_day)
-				    				$day = date("d/m", strtotime("next ".$col));
-				    			else 
-				    				$day = date("d/m");				    			
-				    			echo ">".$col." " . $day. "</th>\n";
+				    		for ($i=0; $i < $nb_columns ; $i++) {
+				    			echo "<th>".$calendar_date->format("D d/m")."</th>\n";
+				    			$calendar_date->modify("+1 day");
 				    		}
 				    	?>
 				    	</tr>
 					</thead>
 					<tbody>
-				    	<?php
-				    	for ($i=0; $i < $nb_lines; $i++) { 
-				    		echo "<tr><th>".$i.":00</th>";
-				    		for ($j=0; $j < $nb_columns ; $j++) { 
-				    			echo "<td data_day='$j' data_time='$i:00'></td>";
+				    	<?php					    
+				    	$calendar_date = clone $ref_date;
+				    	for ($i=0; $i < $nb_lines; $i++) {
+				    		$calendar_time = $calendar_date->format("H:i");
+				    		echo "<tr><th>".$calendar_time."</th>";
+				    		for ($j=0; $j < $nb_columns ; $j++) { ?>
+								<td data_day="<?php echo $j; ?>" data_time="<?php echo $calendar_time; ?>">
+									<a href="./create_event.php?d=<?php echo $j.'&t='.$calendar_time; ?>">
+				    			<?php 
+				    			$event_day = $calendar_date->format("d/m");
+				    			if (isset($displayed_events[$event_day][$calendar_time]))
+				    			{
+					    			foreach ($displayed_events[$event_day][$calendar_time] as $event) { ?>
+					    				<div class="event_box" <?php echo $style_event ?> >
+											<span>
+												<a href="./info_event.php?e=<?php echo $event->getId();?>">
+													<?php echo $event->getName() ?>
+												</a>
+											</span>
+											<div>
+												<a>
+												<!-- <a href="./edit_event.php?e=<?php echo $event->getId(); ?>"> -->
+												<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+												</a>
+											</div>
+											<div>
+												<!-- <a href="./remove_event.php?e=<?php echo $event->getId();?>"> -->
+												<a>
+													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												</a>
+											</div>
+										</div>					    				
+					    			<?php }
+				    			}
+				    			echo '</a></td>';
+				    			$calendar_date->modify("+1 day");
 				    		}
+				    		$calendar_date = clone $ref_date;
+				    		$calendar_date->setTime($i+1,0);
 				    		echo "</tr>\n";
 				    	}
 				    	?>

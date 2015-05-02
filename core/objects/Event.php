@@ -22,6 +22,8 @@ class Event
 		$this->name = $name;
 		$this->owner = $owner;
 		$this->guests = $guests;
+		if (!is_a($date_event, "DateTime"))
+			$date_event = DateTime::createFromFormat(DATE_FORMAT, $date_event);
 		$this->date_event = $date_event;
 		$this->description = $description;		
 		$this->date_created = new DateTime();

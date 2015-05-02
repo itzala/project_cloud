@@ -13,7 +13,7 @@ $new_event = addEvent($_POST);
 
 ?>
 <section>
-		<div class="col-lg-6 col-lg-offset-3">
+		<div class="col-lg-6 col-lg-offset-3">		
 		<ul>
 			<?php 
 				foreach ($_SESSION['events'] as $id => $event) {

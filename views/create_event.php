@@ -46,7 +46,7 @@ generate_head("Create an event");
 		<form role="form" id="form_create_event" action="./confirm_event.php" method="POST">
 			<div class="form-group">
 				<label class="control-label" for="event_name">Name : </label>
-				<input class="form-control" id="event_name" type="text" name="event_name" required autofocus value="Babouche party"/>
+				<input class="form-control" id="event_name" type="text" name="event_name" required autofocus/>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="ref_date">Ref date : </label>

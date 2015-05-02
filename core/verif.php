@@ -18,4 +18,9 @@ function encryptPassword($pass){
 	return md5($pass.SALT);
 }
 
+function isInPeriod($checked_date, $begin_date, $end_date)
+{
+	return ($begin_date <= $checked_date && $checked_date <= $end_date);
+}
+
 ?>
