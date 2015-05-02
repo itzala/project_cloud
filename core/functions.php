@@ -220,13 +220,13 @@ function removeAllEvents()
 
 function connectDB(){
 // Loading the library
-require "predis/autoload.php";
+require "Predis/autoload.php";
 Predis\Autoloader::register();
 
 // Connect to redis
 $redis = new Predis\Client(array(
     "scheme" => "tcp",
-    "host" => DBNAME,
+    "host" => SERVER,
     "port" => PORT,
     "password" => USERPASS));
 echo "Connected to Redis";
