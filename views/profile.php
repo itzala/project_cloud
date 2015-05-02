@@ -16,7 +16,7 @@ $user = getLoggedUser();
 </nav>
 
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-		Edit Profile
+		Edit profile
 	</button>
 	<div class="row">
 		<div class="col-lg-6 col-lg-offset-3">
@@ -77,8 +77,10 @@ $user = getLoggedUser();
 												<input class="form-control" type="email" placeholder="My e-mail" id="mail"/>
 											</div>
 										</div>					
-										<hr /><div class="form-group">
-										<input type="submit" class="btn btn-primary" value="Save changes"
+										<hr />
+										<div class="form-group">
+											<input type="submit" class="btn btn-primary" value="Save changes"/>
+										</div>
 									</form>
 								</div>
 							</div>
