@@ -97,15 +97,13 @@ $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 													<?php echo $event->getName() ?>
 												</a>
 											</span>
-											<div>
-												<a>
+											<div>												
 												<a href="./edit_event.php?e=<?php echo $event->getId(); ?>">
-												<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 												</a>
 											</div>
 											<div>
-												<a href="./remove_event.php?e=<?php echo $event->getId();?>">
-												<a>
+												<a href="./remove_event.php?e=<?php echo $event->getId();?>">												
 													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 												</a>
 											</div>

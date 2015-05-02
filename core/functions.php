@@ -206,10 +206,11 @@ function addEvent($datas)
     return $new_event;
 }
 
-function removeEvent($event)
+function removeEvent($id)
 {    
-    if (isset($_SESSION['events'][$event->getId()]))
-        unset($_SESSION['events'][$event->getId()]);
+    $id = intval($id);
+    if (isset($_SESSION['events'][$id]))
+        unset($_SESSION['events'][$id]);
 }
 
 function removeAllEvents()
@@ -217,48 +218,28 @@ function removeAllEvents()
     $_SESSION['events'] = array();
 }
 
+function updateEvent($event, $datas)
+{
+    echo "<pre>";
+    var_dump($datas);
+    echo "</pre>";
 
-function connectDB(){
-     if ( ! class_exists('Mongo')) {
-        echo "<h1>Mongo's driver is not installed on this server :(</h1>";
-    } else {
-        try {
-            // $uri = SERVER;
-            // $options = array("connectTimeoutMS" => 30000, "replicaSet" => "replicaSetName");
+    $users = getAllUsers();
 
-            // // Open the connexion (localhost by default)
-            // $client = new MongoClient($uri, $options);
-
-            $options = array(
-                "db" => DBNAME,
-                "username" => USERNAME,
-                "password" => USERPASS,
-                "connectTimeoutMS" => 30000,
-                //"replicaSet" => "replicaSetName"
-                );
-
-            $client = new MongoClient(SERVER, $options);
-
-            // Database's selection
-            $db = $client->selectDB(DBNAME);
-
-            // Collection's selection "Users"
-            $c_users = new MongoCollection($db, "Users");
-
-            // Get all users
-            $get_users = $c_users->find();
-
-            // Get the number of users
-            $count_users = $c_users->count();
-
-            echo "<h1>Count users : ".$count_users."</h1";
-            // Close the connexion
-            $client->close();
-
-        } catch (MongoConnectionException $exception) {
-            echo "<h1>Connexion impossible to the server MongoDB :( Because '".$exception->getMessage()."'</h1>";
+    $event->setName($datas['name_event']);
+    $event->setDateEvent($datas['date_event']);
+    $event->setDescription($datas['event_description']);
+    if (isset($datas['event_guests']))
+    {
+        foreach ($datas['event_guests'] as $username) {
+            $guests[] = $users[$username];
         }
     }
+    $event->setGuests($guests);
+
+    $_SESSION['events'][$event->getId()] = $event;
+
+    return $event;
 }
 
 ?>

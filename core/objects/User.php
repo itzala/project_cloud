@@ -19,6 +19,7 @@ class User
 
 	function __construct($lastname, $firstname, $username, $password, $mail)
 	{
+		//$this->id = 0;
 		$this->id = $count_id;
 		$count_id++;
 		$this->lastname = $lastname;
