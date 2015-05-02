@@ -36,6 +36,7 @@ $style_event = 'style="display:inline-block; width:90%; border:1px solid black; 
 	<nav>	
 	<?php if (($user = getLoggedUser()) == null){ ?>
 		<a href="./login.php" class="btn btn-primary">Log in</a>
+		<a href="./register.php" class="btn btn-primary">Register</a>
 	<?php }else {?>
 		<a href="./profile.php">Logged as <?php echo $user->getUsername(); ?></a>
 		<a href="./logout.php" class="btn btn-primary">Log out</a>		
