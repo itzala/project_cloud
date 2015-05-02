@@ -218,12 +218,9 @@ function removeAllEvents()
     $_SESSION['events'] = array();
 }
 
+
 function updateEvent($event, $datas)
 {
-    echo "<pre>";
-    var_dump($datas);
-    echo "</pre>";
-
     $users = getAllUsers();
 
     $event->setName($datas['name_event']);
@@ -240,6 +237,90 @@ function updateEvent($event, $datas)
     $_SESSION['events'][$event->getId()] = $event;
 
     return $event;
+}
+
+// Function which verify data in the form before create a new user
+function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
+
+    $lastname = testInput($lname);
+    $firstname = testInput($fname);
+    $username = testInput($uname);
+    $pass = testInput($pas);
+    $pass2 = testInput($pas2);
+    $mail = testInput($email);
+
+    // Last name verification 
+    if(empty($lastname)){
+        $errors[] = 'Last name is empty';
+    }else if(strlen($lastname) < 3){
+        $errors[] = 'Last name is too short';
+    }else if(strlen($lastname) > 32){
+        $errors[] = 'Last name is too long';
+    }else if (!preg_match("/^[a-zA-Z ]*$/",$lastname)) {
+        $errors[] = "Last name: only letters and white space allowed";
+    }
+
+    // First name verification
+    if(empty($firstname)) {
+        $errors[] = 'First name is empty'; 
+    }else if(strlen($firstname) < 3){
+        $errors[] = 'First name is too short';
+    }else if(strlen($firstname) > 32){
+        $errors[] = 'First name is too long';
+    }else if (!preg_match("/^[a-zA-Z ]*$/",$firstname)) {
+        $errors[] = "First name: only letters and white space allowed";
+    }
+    // Username verification
+    if(empty($username)) {
+        $errors[] = 'Username is empty';
+    }else if(strlen($username) < 3){
+        $errors[] = 'Username is too short';
+    }else if(strlen($username) > 32){
+        $errors[] = 'Username is too long';
+    }else if (!preg_match("/^[a-zA-Z0-9]*$/",$username)) {
+        $errors[] = "Only letters and white space allowed";
+    }
+    if (isValidUsername($username)){
+        $errors[] = 'Username is already used';
+    }
+
+    // Pass verification
+    if(empty($pass) || empty($pass2)){
+        $errors[] = 'pass is empty';
+    } else if ($pass != $pass2){
+        $errors[] = 'Invalid password';
+    }
+
+    // Mail verification
+    if(empty($mail)) {
+        $errors[] = 'mail is empty';
+    } else if (!isMailValid($mail)){
+        $errors[] = 'Invalid mail';
+    }
+
+    if (count($errors) > 0) {
+        return $errors;        
+    }
+}
+
+function testInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+function newUser($lname, $fname, $uname, $pas, $email){
+    $lastname = testInput($lname);
+    $firstname = testInput($fname);
+    $username = testInput($uname);
+    $pass = encryptPassword($pas);
+    $mail = testInput($email);
+    $user = new User($lastname, $firstname, $username, $pass, $mail);
+    global $users;
+    $users[] = $username;
+    //echo $user->getAll();
+    echo $users->getAllUsers;
 }
 
 ?>

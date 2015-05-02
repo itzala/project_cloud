@@ -19,20 +19,20 @@ generate_head("Register me");
 		$nbErr = 0;
 	// After submit form
 	} else {
-		$erreurs = registration();
+		$erreurs = registration($_POST['lastname'], $_POST['firstname'], $_POST['username'], $_POST['pass'], $_POST['pass2'], $_POST['mail']);
 		$nbErr = count($erreurs);
-	}
-
-	// Displays errors
-	if ($nbErr > 0) {
-		echo 'This following errors were detected:';
-		foreach ($erreurs as $key => $value) {
-			echo '<br>', $value;
+		// Displays errors
+		if ($nbErr > 0) {
+			echo '<br>This following errors were detected:';
+			foreach ($erreurs as $key => $value) {
+				echo '<br>', $value;
+			}
+		// Insert into the database and redirect to login.php
+		}else{
+			newUser($_POST['lastname'], $_POST['firstname'], $_POST['username'], $_POST['pass'], $_POST['mail']);
+			echo "Success !";
+			//header("Location:./views/login.php");
 		}
-	// Insert into the database and redirect to login.php
-	}else{
-		newUser();
-		//header("Location:./views/login.php");
 	}
 ?>
 
@@ -43,27 +43,27 @@ generate_head("Register me");
 				<div class="form-group">              
 					<div class="form-group">
 					   	<label class="control-label" for="lastname" name=>Last name</label>
-						<input class="form-control" type="text" placeholder="My last name" id="lastname" autofocus/>
+						<input class="form-control" type="text" placeholder="My last name" name="lastname" autofocus/>
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="firstname">First name</label>
-						<input class="form-control" type="text" placeholder="My first name" id="firstlastname"/>
+						<input class="form-control" type="text" placeholder="My first name" name="firstname"/>
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="username">Username</label>
-						<input class="form-control" type="text" placeholder="My username" id="username"/>
+						<input class="form-control" type="text" placeholder="My username" name="username"/>
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="pass">Password</label>
-						<input class="form-control" type="password" placeholder="My password" id="pass"/>
+						<input class="form-control" type="password" placeholder="My password" name="pass"/>
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="pass2">Retype password</label>
-						<input class="form-control" type="password" placeholder="My password" id="pass2"/>
+						<input class="form-control" type="password" placeholder="My password" name="pass2"/>
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="mail">E-mail</label>
-						<input class="form-control" type="text" placeholder="My e-mail" id="mail"/>
+						<input class="form-control" type="text" placeholder="My e-mail" name="mail"/>
 					</div>
 				</div>
 				<hr />
@@ -75,72 +75,5 @@ generate_head("Register me");
 	</div>
 
 <?php
-// define variables and set to empty values
-$lastname = $firstname = $username = $pass = $pass2 = $mail = "";
-$errors = array();
-
-// Function which verify data in the form before create a new user
-function registration(){
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$lastname = testInput($_POST["lastname"]);
-		$firstname = testInput($_POST["firstname"]);
-		$username = testInput($_POST["username"]);
-		$pass = testInput($_POST["pass"]);
- 		$pass2 = testInput($_POST["pass2"]);
-	  	$mail = testInput($_POST["mail"]);
-	}
-
-	// Last name verification 
-	if(empty($lastname)) $erreurs[] = 'Last name is empty';
-    else if(strlen($lastname) < 3) $erreurs[] = 'Last name is too short';
-    else if(strlen($lastname) > 32) $erreurs[] = 'Last name is too long';
-
-	// First name verification
-	if(empty($firstname)) $erreurs[] = 'First name is empty';
-    else if(strlen($firstname) < 3) $erreurs[] = 'First name is too short';
-    else if(strlen($firstname) > 32) $erreurs[] = 'First name is too long';
-
-	// Username verification
-	if(empty($username)) $erreurs[] = 'Username is empty';
-    else if(strlen($username) < 3) $erreurs[] = 'Username is too short';
-    else if(strlen($username) > 32) $erreurs[] = 'Username is too long';
-	if (isValidUsername($username)){
-		$erreurs[] = 'Username already used';
-	}
-
-	// Pass verification
-	if(empty($pass) || empty($pass2)) $erreurs[] = 'pass is empty';
-	if ($pass != $pass2){
-		$erreurs[] = 'Invalid password';
-	}
-
-	// Mail verification
-	if(empty($mail)) $erreurs[] = 'mail is empty';
-	if (isMailValid($mail)){
-		$erreurs[] = 'Invalid mail';
-	}
-
-	if (count($erreurs) > 0) {
-		return $erreurs;		
-	}
-}
-
-function testInput($data) {
-	$data = trim($data);
-	$data = stripslashes($data);
-	$data = htmlspecialchars($data);
-	return $data;
-}
-
-function newUser(){
-	$lastname = testInput($_POST["lastname"]);
-	$firstname = testInput($_POST["firstname"]);
-	$username = testInput($_POST["username"]);
-	$pass = encryptPassword(testInput($_POST["pass"]));
-  	$mail = testInput($_POST["mail"]);
-	$admin = new User($lastname, $firstname, $username, $pass, $mail);
-	echo $admin->getId();
-}
-
 generate_footer();
 ob_end_flush();
