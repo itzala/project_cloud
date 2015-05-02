@@ -39,6 +39,10 @@ function getAllUsers()
 {
     global $users;
     return $users;
+
+    /*
+        $bdd->query('SELECT username FROM USER');
+    */
 }
 
 function isRegistered($username, $password){
@@ -46,4 +50,11 @@ function isRegistered($username, $password){
     if (isset($users[$username]) && $users[$username]->getPassword() == $password)
         return $users[$username];
     return NULL;
+
+    /* Faut peut être encrypter le pass pour la vérif, je sais pas comment il arrive dans la fonction
+    $req = $bdd->prepare('SELECT username, password FROM USER 
+    WHERE username = :uname AND password <= :pass');
+
+    $req->execute(array('uname' => $username, 'pass' => $password));
+    */
 }

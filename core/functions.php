@@ -106,10 +106,12 @@ function isLogged($reverse = true){
     }
 }
 
+
 function getLoggedUser()
 {    
     return isset($_SESSION['user']) ? $_SESSION['user'] : null;
 }
+
 
 /*
 *   Control events
@@ -132,6 +134,10 @@ function getAllEvents($filters = array())
     // }
 
     return $events;
+
+    /*
+        $bdd->query('SELECT * FROM EVENT');
+    */
 }
 
 function getDisplayedEvents()
@@ -157,11 +163,22 @@ function getDisplayedEvents()
     $displayed_events['count'] = $count_events;
 
     return $displayed_events;
+
+    /* En fait j'ai rien compris à ce que tu voulais ici
+        $events = $all_events->fetch();
+    */
 }
 
 function getEventById($id)
 {
     return isset($_SESSION['events'][$id]) ? $_SESSION['events'][$id] : null;
+
+    /*
+        $req = $bdd->prepare('SELECT * FROM EVENT 
+        WHERE id = :id);
+
+        $req->execute('id' => $id);
+    */
 }
 
 function loadEventsInSession()
@@ -171,6 +188,8 @@ function loadEventsInSession()
         global $events;
         $_SESSION['events'] = $events;
     }
+
+    /*Du coup on a plus besoin de cette fonction ?*/
 }
 
 
