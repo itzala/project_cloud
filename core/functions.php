@@ -219,17 +219,36 @@ function removeAllEvents()
 
 
 function connectDB(){
-// Loading the library
-require "predis/autoload.php";
-Predis\Autoloader::register();
+     if ( ! class_exists('Mongo')) {
+        echo "<h1>Mongo's driver is not installed on this server :(</h1>";
+    } else {
+        try {
+            $uri = SERVER;
 
-// Connect to redis
-$redis = new Predis\Client(array(
-    "scheme" => "tcp",
-    "host" => DBNAME,
-    "port" => PORT,
-    "password" => USERPASS));
-echo "Connected to Redis";
+            $options = array("connectTimeoutMS" => 30000, "replicaSet" => "replicaSetName");
+
+            // Open the connexion (localhost by default)
+            $client = new MongoClient($uri, $options);
+
+            // Database's selection
+            $db = $client->selectDB(DBNAME);
+
+            // Collection's selection "Users"
+            $c_users = new MongoCollection($db, "Users");
+
+            // Get all users
+            $get_users = $c_users->find();
+
+            // Get the number of users
+            $count_users = $c_users->count();
+
+            // Close the connexion
+            $client->close();
+
+        } catch (MongoConnectionException $exception) {
+            echo "<h1>Connexion impossible to the server MongoDB :(</h1>";
+        }
+    }
 }
 
 ?>

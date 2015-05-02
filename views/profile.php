@@ -87,11 +87,6 @@ $user = getLoggedUser();
 				</div>
 			</div>
 		</div>
-
-		
-
-
-
 <?php
 generate_footer();
 ob_end_flush();
