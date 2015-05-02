@@ -2,7 +2,7 @@
 
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/config.php");
 
-function isMailValide(){
+function isMailValid($email){
 	return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 

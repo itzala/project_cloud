@@ -7,6 +7,9 @@ require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/verif.php");
 */
 class User
 {	
+
+	private $count_id = 0;
+
 	private $id;
 	private $lastname;
 	private $firstname;
@@ -16,7 +19,8 @@ class User
 
 	function __construct($lastname, $firstname, $username, $password, $mail)
 	{
-		$this->id = NULL;
+		$this->id = $count_id;
+		$count_id++;
 		$this->lastname = $lastname;
 		$this->firstname = $firstname;
 		$this->username = $username;
