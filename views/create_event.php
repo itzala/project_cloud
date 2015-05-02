@@ -26,6 +26,7 @@ else if (!isset($_GET['d']) && isset($_GET['t']))
 else
 {
 	$event_date = new DateTime();
+	$event_date->setTime($event_date->format("H"),0);
 }
 
 $event_date = getFormattedDate($event_date);

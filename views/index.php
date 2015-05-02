@@ -28,6 +28,10 @@ echo "<p> Nombre d'évènements : ".$displayed_events['count']." <br/></p>";
 $style_event = 'style="display:inline-block; width:90%; border:1px solid black; text-align:center;"
 ';
 
+echo "<pre>";
+var_dump($displayed_events);
+echo "</pre>";
+
 ?>
 	<nav>	
 	<?php if (($user = getLoggedUser()) == null){ ?>
@@ -75,7 +79,7 @@ $style_event = 'style="display:inline-block; width:90%; border:1px solid black; 
 				    		echo "<tr><th>".$calendar_time."</th>";
 				    		for ($j=0; $j < $nb_columns ; $j++) { ?>
 								<td data_day="<?php echo $j; ?>" data_time="<?php echo $calendar_time; ?>">
-									<a href="./create_event.php?d=<?php echo $j.'&t='.$calendar_time; ?>">
+									<!-- <a href="./create_event.php?d=<?php echo $j.'&t='.$calendar_time; ?>"  style="display:block;">Create</a> -->
 				    			<?php 
 				    			$event_day = $calendar_date->format("d/m");
 				    			if (isset($displayed_events[$event_day][$calendar_time]))
@@ -89,12 +93,12 @@ $style_event = 'style="display:inline-block; width:90%; border:1px solid black; 
 											</span>
 											<div>
 												<a>
-												<!-- <a href="./edit_event.php?e=<?php echo $event->getId(); ?>"> -->
+												<a href="./edit_event.php?e=<?php echo $event->getId(); ?>">
 												<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 												</a>
 											</div>
 											<div>
-												<!-- <a href="./remove_event.php?e=<?php echo $event->getId();?>"> -->
+												<a href="./remove_event.php?e=<?php echo $event->getId();?>">
 												<a>
 													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 												</a>
