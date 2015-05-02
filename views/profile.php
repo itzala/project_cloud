@@ -24,22 +24,22 @@ $user = getLoggedUser();
 			<div class="form-group" id="">              
 				<div class="form-group">
 				   	<label class="control-label" for="lastname">Last name</label>
-					<input class="form-control validate[optional,custom[noSpecialCaracters],length[0,20]]" type="text" placeholder="My last name" id="lastname"
+					<input class="form-control" readonly type="text" placeholder="My last name" id="lastname"
 					value="<?php echo $user->getLastName();?>"/>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="firstlastname">First name</label>
-					<input class="form-control" type="text" placeholder="My first name" id="firstlastname"
+					<input class="form-control" readonly type="text" placeholder="My first name" id="firstlastname"
 					value="<?php echo $user->getFirstName();?>"/>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="username">Username</label>
-					<input class="form-control" type="text" placeholder="My username" id="username"
+					<input class="form-control" readonly type="text" placeholder="My username" id="username"
 					value="<?php echo $user->getUserName();?>"/>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="mail">E-mail</label>
-					<input class="form-control" type="email" placeholder="My e-mail" id="mail"
+					<input class="form-control" readonly type="email" placeholder="My e-mail" id="mail"
 					value="<?php echo $user->getMail();?>"/>
 				</div>
 			</div>
