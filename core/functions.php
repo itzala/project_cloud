@@ -106,6 +106,13 @@ function isRegistered($username, $password){
     if (isset($users[$username]) && $users[$username]->getPassword() == $password)
         return $users[$username];
     return NULL;
+
+    /* Faut peut être encrypter le pass pour la vérif, je sais pas comment il arrive dans la fonction
+    $req = $bdd->prepare('SELECT username, password FROM USER 
+    WHERE username = :uname AND password <= :pass');
+
+    $req->execute(array('uname' => $username, 'pass' => $password));
+    */
 }
 
 function getLoggedUser()
@@ -117,6 +124,10 @@ function getAllUsers()
 {
     global $users;
     return $users;
+
+    /*
+        $bdd->query('SELECT username FROM USER');
+    */
 }
 
 /*
@@ -140,6 +151,10 @@ function getAllEvents($filters = array())
     // }
 
     return $events;
+
+    /*
+        $bdd->query('SELECT * FROM EVENT');
+    */
 }
 
 function getDisplayedEvents()
@@ -165,11 +180,22 @@ function getDisplayedEvents()
     $displayed_events['count'] = $count_events;
 
     return $displayed_events;
+
+    /* En fait j'ai rien compris à ce que tu voulais ici
+        $events = $all_events->fetch();
+    */
 }
 
 function getEventById($id)
 {
     return isset($_SESSION['events'][$id]) ? $_SESSION['events'][$id] : null;
+
+    /*
+        $req = $bdd->prepare('SELECT * FROM EVENT 
+        WHERE id = :id);
+
+        $req->execute('id' => $id);
+    */
 }
 
 function loadEventsInSession()
@@ -179,6 +205,8 @@ function loadEventsInSession()
         global $events;
         $_SESSION['events'] = $events;
     }
+
+    /*Du coup on a plus besoin de cette fonction ?*/
 }
 
 function addEvent($datas)
