@@ -1,6 +1,12 @@
 <?php
 
+if (!file_exists($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/config.php"))
+{
+    echo "Configuration missing";
+    die();
+}
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/config.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/database.php");
 
 /*
 *  Structural view functions
@@ -52,15 +58,14 @@ function setReferenceDate($date = null)
     if ($date == null)
     {
         $date = new DateTime('last '.FIRST_DAY_WEEK);        
-    }
-
+    }   
     $_SESSION['ref_date'] = $date;
 }
 
 function getReferenceDate()
 {
     if (!isset($_SESSION['ref_date']))
-        setReferenceDate();    
+        setReferenceDate();
     return clone $_SESSION['ref_date'];
 }
 
@@ -101,22 +106,9 @@ function isLogged($reverse = true){
     }
 }
 
-function isRegistered($username, $password){
-    global $users;    
-    if (isset($users[$username]) && $users[$username]->getPassword() == $password)
-        return $users[$username];
-    return NULL;
-}
-
 function getLoggedUser()
 {    
     return isset($_SESSION['user']) ? $_SESSION['user'] : null;
-}
-
-function getAllUsers()
-{
-    global $users;
-    return $users;
 }
 
 /*
@@ -156,7 +148,7 @@ function getDisplayedEvents()
     foreach ($all_events as $event) {
         $date_event = $event->getDateEvent();        
         if ($event->getOwner() == $owner && isInPeriod($date_event, $ref_date, $end_ref_date))
-        {
+        {            
             $displayed_events[$date_event->format("d/m")][$date_event->format("H:i")][] = $event;
             $count_events++;
         }
@@ -181,30 +173,6 @@ function loadEventsInSession()
     }
 }
 
-function addEvent($datas)
-{
-    $users = getAllUsers();
-    loadEventsInSession();
-    $guests = array();
-    if (isset($datas['event_guests']))
-    {
-        foreach ($datas['event_guests'] as $username) {
-            $guests[] = $users[$username];
-        }
-    }
-
-    $new_event = new Event($datas['event_name'], getLoggedUser(), $datas['event_date'],
-                        $datas['event_description'], $guests);
-
-    $new_event->setId(count($_SESSION['events'])+1);
-    $_SESSION['events'][$new_event->getId()] = $new_event;
-
-    /*
-    * $bd->persist($new_event);
-    */
-
-    return $new_event;
-}
 
 function removeEvent($id)
 {    
