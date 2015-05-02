@@ -223,12 +223,21 @@ function connectDB(){
         echo "<h1>Mongo's driver is not installed on this server :(</h1>";
     } else {
         try {
-            $uri = SERVER;
+            // $uri = SERVER;
+            // $options = array("connectTimeoutMS" => 30000, "replicaSet" => "replicaSetName");
 
-            $options = array("connectTimeoutMS" => 30000, "replicaSet" => "replicaSetName");
+            // // Open the connexion (localhost by default)
+            // $client = new MongoClient($uri, $options);
 
-            // Open the connexion (localhost by default)
-            $client = new MongoClient($uri, $options);
+            $options = array(
+                "db" => DBNAME,
+                "username" => USERNAME,
+                "password" => USERPASS,
+                "connectTimeoutMS" => 30000,
+                //"replicaSet" => "replicaSetName"
+                );
+
+            $client = new MongoClient(SERVER, $options);
 
             // Database's selection
             $db = $client->selectDB(DBNAME);
@@ -242,11 +251,12 @@ function connectDB(){
             // Get the number of users
             $count_users = $c_users->count();
 
+            echo "<h1>Count users : ".$count_users."</h1";
             // Close the connexion
             $client->close();
 
         } catch (MongoConnectionException $exception) {
-            echo "<h1>Connexion impossible to the server MongoDB :(</h1>";
+            echo "<h1>Connexion impossible to the server MongoDB :( Because '".$exception->getMessage()."'</h1>";
         }
     }
 }

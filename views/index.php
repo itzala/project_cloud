@@ -28,9 +28,9 @@ echo "<p> Nombre d'évènements : ".$displayed_events['count']." <br/></p>";
 $style_event = 'style="display:inline-block; width:90%; border:1px solid black; text-align:center;"
 ';
 
-echo "<pre>";
-var_dump($displayed_events);
-echo "</pre>";
+// echo "<pre>";
+// var_dump($displayed_events);
+// echo "</pre>";
 
 ?>
 	<nav>	
