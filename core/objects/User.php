@@ -8,7 +8,7 @@ require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/verif.php");
 class User
 {	
 
-	private $count_id = 0;
+	static $count_id = 0;
 
 	private $id;
 	private $lastname;

@@ -26,8 +26,8 @@ generate_head("Register me");
 	// Displays errors
 	if ($nbErr > 0) {
 		echo 'This following errors were detected:';
-		for ($i = 0; $i < $nbErr; $i++) {
-			echo '<br>', $erreurs[$i];
+		foreach ($erreurs as $key => $value) {
+			echo '<br>', $value;
 		}
 	// Insert into the database and redirect to login.php
 	}else{
@@ -63,7 +63,7 @@ generate_head("Register me");
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="mail">E-mail</label>
-						<input class="form-control" type="email" placeholder="My e-mail" id="mail"/>
+						<input class="form-control" type="text" placeholder="My e-mail" id="mail"/>
 					</div>
 				</div>
 				<hr />
@@ -91,17 +91,17 @@ function registration(){
 	}
 
 	// Last name verification 
-	if($lastname == '') $erreurs[] = 'Last name is empty';
+	if(empty($lastname)) $erreurs[] = 'Last name is empty';
     else if(strlen($lastname) < 3) $erreurs[] = 'Last name is too short';
     else if(strlen($lastname) > 32) $erreurs[] = 'Last name is too long';
 
 	// First name verification
-	if($firstname == '') $erreurs[] = 'First name is empty';
+	if(empty($firstname)) $erreurs[] = 'First name is empty';
     else if(strlen($firstname) < 3) $erreurs[] = 'First name is too short';
     else if(strlen($firstname) > 32) $erreurs[] = 'First name is too long';
 
 	// Username verification
-	if($username == '') $erreurs[] = 'Username is empty';
+	if(empty($username)) $erreurs[] = 'Username is empty';
     else if(strlen($username) < 3) $erreurs[] = 'Username is too short';
     else if(strlen($username) > 32) $erreurs[] = 'Username is too long';
 	if (isValidUsername($username)){
@@ -109,13 +109,13 @@ function registration(){
 	}
 
 	// Pass verification
-	if($pass == '' || $pass2 == '') $erreurs[] = 'pass is empty';
+	if(empty($pass) || empty($pass2)) $erreurs[] = 'pass is empty';
 	if ($pass != $pass2){
 		$erreurs[] = 'Invalid password';
 	}
 
 	// Mail verification
-	if($mail == '') $erreurs[] = 'mail is empty';
+	if(empty($mail)) $erreurs[] = 'mail is empty';
 	if (isMailValid($mail)){
 		$erreurs[] = 'Invalid mail';
 	}
@@ -126,10 +126,10 @@ function registration(){
 }
 
 function testInput($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
 }
 
 function newUser(){
