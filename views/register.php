@@ -19,12 +19,12 @@ generate_head("Register me");
 		$nbErr = 0;
 	// After submit form
 	} else {
-		$erreurs = registration($_POST['lastname'], $_POST['firstname'], $_POST['username'], $_POST['pass'], $_POST['pass2'], $_POST['mail']);
-		$nbErr = count($erreurs);
+		$errors = registration($_POST['lastname'], $_POST['firstname'], $_POST['username'], $_POST['pass'], $_POST['pass2'], $_POST['mail']);
+		$nbErr = count($errors);
 		// Displays errors
 		if ($nbErr > 0) {
 			echo '<br>This following errors were detected:';
-			foreach ($erreurs as $key => $value) {
+			foreach ($errors as $key => $value) {
 				echo '<br>', $value;
 			}
 		// Insert into the database and redirect to login.php

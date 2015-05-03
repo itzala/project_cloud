@@ -127,6 +127,8 @@ function getLoggedUser()
 // Function which verify data in the form before create a new user
 function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
 
+    $errors = array();
+
     $lastname = testInput($lname);
     $firstname = testInput($fname);
     $username = testInput($uname);
