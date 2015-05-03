@@ -68,9 +68,14 @@ function getAllEvents($filters = array())
     $datas = $req->fetchAll();    
     $req->closeCursor();
     foreach ($datas as $event) {
+        $req = $bdd->prepare('SELECT * FROM EVENT NATURAL JOIN USER WHERE name = :name');
+        $req->setFetchMode(FETCH_MODE, 'Event', array("id", "name", "owner", "date_event", "description", "guests"));
+        $req->execute(array(":name" => $filters));
+        $datas = $req->fetchAll();
+        $req->closeCursor();
         
+        return $datas;
     }
-    return $datas;
 }
 
 function addEvent($datas)
@@ -90,6 +95,7 @@ function addEvent($datas)
 					":date_event" => $new_event->getDateEvent()->format(DATE_FORMAT_SQL),
 					":description" => $new_event->getDescription() ));
     $req->closeCursor();
+
     return $new_event;
 }
 
