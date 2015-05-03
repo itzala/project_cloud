@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/database.php");
 
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/objects/Event.php");
 
@@ -35,7 +35,8 @@ $list_users = getAllUsers();
  
 ob_start();
 generate_head("Create an event");
- ?>
+
+?>
 
 <nav>
 	<a href="./" class="btn btn-primary">Back to index</a>

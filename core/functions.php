@@ -6,7 +6,6 @@ if (!file_exists($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/config.php"))
     die();
 }
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/config.php");
-require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/database.php");
 
 /*
 *  Structural view functions
@@ -60,8 +59,7 @@ function setReferenceDate($date = null)
         if (strtolower(date('l')) != strtolower(FIRST_DAY_WEEK))
             $date = new DateTime('last '.FIRST_DAY_WEEK);
         else
-        {
-            echo "CHANGEMENT DE REFERENCE !";
+        {            
             $date = new DateTime();
             $date->setTime(0,0);
         }
@@ -124,8 +122,17 @@ function getLoggedUser()
 *   Control events
 */
 
+function testInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
 // Function which verify data in the form before create a new user
 function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
+
+    $errors = array();
 
     $lastname = testInput($lname);
     $firstname = testInput($fname);

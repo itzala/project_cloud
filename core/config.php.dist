@@ -10,6 +10,7 @@ define("DBNAME", "dbname");
 define("USERNAME", "username");
 define("USERPASS", "userpass");
 define("SALT", "salt");
+define("FETCH_MODE", PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE);
 
 /*
 *	Configuration to manage dates
@@ -33,3 +34,19 @@ $toto->setId(2);
 $users = array($admin->getUsername() => $admin, $toto->getUsername() => $toto);
 
 $events = array();
+
+$is_local_db = false;
+
+try
+{	
+	// Every warning are shown
+	// $bdd = new PDO("mysql:dbname=".DBNAME.";host=".SERVER, USERNAME, USERPASS);
+
+	// We hide all warning
+	$bdd = @new PDO("mysql:dbname=".DBNAME.";host=".SERVER, USERNAME, USERPASS);
+}
+catch(PDOException $e)
+{
+	echo "Error : Impossible to connect to the database...<br/>";
+	$local_db = true;
+}

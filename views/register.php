@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/database.php");
 
 session_start();
 isLogged(false);

@@ -16,8 +16,11 @@ class Event
 	private $date_event;
 	private $description;
 
-	function __construct($name, User $owner, $date_event, $description = "", $guests = array())
+	function __construct($name, $owner, $date_event, $description = "", $guests = array())
 	{
+		echo "<pre>";
+		var_dump($owner);
+		echo "</pre>";
 		$this->id = NULL;
 		$this->name = $name;
 		$this->owner = $owner;

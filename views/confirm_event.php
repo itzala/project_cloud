@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/database.php");
 
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/objects/Event.php");
 
@@ -10,15 +10,16 @@ isLogged();
 ob_start();
 generate_head("Confirm event");
 $new_event = addEvent($_POST);
-
+$list_events = getAllEvents();
 ?>
 <section>
 		<div class="col-lg-6 col-lg-offset-3">
 		<label>List of events</label>	
 		<ul>
 			<?php 
-				foreach ($_SESSION['events'] as $id => $event) {
-					echo "<li>event #" .$id. " => ".$event->getName()."</li><br/>";
+				foreach ($list_events as $event) {
+					echo '<li>event #<a href="./info_event.php?e='. $event->getId().'">"'
+					 .$event->getId(). '"</a> => '.$event->getName().'</li>';
 				}
 			?>
 		</ul>
