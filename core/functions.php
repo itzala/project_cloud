@@ -57,8 +57,15 @@ function setReferenceDate($date = null)
 {
     if ($date == null)
     {
-        $date = new DateTime('last '.FIRST_DAY_WEEK);        
-    }   
+        if (strtolower(date('l')) != strtolower(FIRST_DAY_WEEK))
+            $date = new DateTime('last '.FIRST_DAY_WEEK);
+        else
+        {
+            echo "CHANGEMENT DE REFERENCE !";
+            $date = new DateTime();
+            $date->setTime(0,0);
+        }
+    }
     $_SESSION['ref_date'] = $date;
 }
 
