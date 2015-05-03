@@ -164,9 +164,11 @@ function getDisplayedEvents()
 
     return $displayed_events;
 
-    /* En fait j'ai rien compris à ce que tu voulais ici
-        $events = $all_events->fetch();
-    */
+        // $req = $bdd->prepare('SELECT * FROM EVENT NATURAL JOIN USER 
+        // WHERE date_event BETWEEN (:ref_date, :end_ref_date)
+        // AND owner = :id')
+
+        //$req->execute(array('id' => $owner=>getId(), 'ref_date' => $ref_date, 'end_ref_date' => $end_ref_date));
 }
 
 function getEventById($id)
