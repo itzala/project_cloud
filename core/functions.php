@@ -175,9 +175,9 @@ function getEventById($id)
 
     /*
         $req = $bdd->prepare('SELECT * FROM EVENT 
-        WHERE id = :id);
+        WHERE id = :id');
 
-        $req->execute('id' => $id);
+        $req->execute('id', $id);
     */
 }
 
@@ -198,11 +198,18 @@ function removeEvent($id)
     $id = intval($id);
     if (isset($_SESSION['events'][$id]))
         unset($_SESSION['events'][$id]);
+
+    // $req = $bdd->prepare('DELETE FROM EVENT 
+    //     WHERE id = :id');
+
+    // $req->execute('id', $id);
 }
 
 function removeAllEvents()
 {
     $_SESSION['events'] = array();
+
+    // Useless ?
 }
 
 
@@ -224,6 +231,20 @@ function updateEvent($event, $datas)
     $_SESSION['events'][$event->getId()] = $event;
 
     return $event;
+
+
+    // if (isset($datas['event_guests']))
+    // {
+    //     foreach ($datas['event_guests'] as $username) {
+    //         $guests[] = $users[$username];
+    //     }
+    // }
+
+    // $req = $bdd->prepare('UPDATE EVENT 
+    //     SET name = :name, date_event = :date, guests = :guests, description = :description
+    //     WHERE id = :id');
+
+    // $req->execute(array('id' => $_GET['e'], 'name' => $datas['name_event'], 'date_event => '$datas['date_event'], 'guests' => $guests, 'description' => $datas['event_description']));
 }
 
 // Function which verify data in the form before create a new user
@@ -308,6 +329,11 @@ function newUser($lname, $fname, $uname, $pas, $email){
     $users[] = $username;
     //echo $user->getAll();
     echo $users->getAllUsers;
+
+    // $req = $bdd->prepare('INSERT INTO USER (lastname, firstname, username, password, mail)
+    // VALUES (:lastname, :firstname, :username, :pass, :mail);
+
+    // $req->execute(array('lastname' => $lastname, 'firstname' => $firstname, 'username' => $username, 'pass' => $pass, 'mail' => $mail));
 }
 
 ?>
