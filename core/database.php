@@ -111,13 +111,12 @@ function getAllEvents($filters = array())
     else
     {
         global $bdd;
-        $req = $bdd->query('SELECT * FROM EVENT NATURAL JOIN USER');
-        $req->setFetchMode(FETCH_MODE, 'Event', array("name", "owner", "date_event", "description", "guests"));
+        $req = $bdd->prepare('SELECT * FROM EVENT NATURAL JOIN USER WHERE name = :name');
+        $req->setFetchMode(FETCH_MODE, 'Event', array("id", "name", "owner", "date_event", "description", "guests"));
+        $req->execute(array(":name" => $filters));
         $datas = $req->fetchAll();
         $req->closeCursor();
-        foreach ($datas as $event) {
-            
-        }
+        
         return $datas;
     }
 

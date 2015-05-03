@@ -35,7 +35,8 @@ $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 		<a href="./register.php" class="btn btn-primary">Register</a>
 	<?php }else {?>
 		<a href="./profile.php">Logged as <?php echo $user->getUsername(); ?></a>
-		<a href="./logout.php" class="btn btn-primary">Log out</a>		
+		<a href="./logout.php" class="btn btn-primary">Log out</a>	
+		<a href="./search_event.php" class="btn btn-primary">Search</a>	
 		<a href="./reset_session.php?rd=1&e=1" class="btn btn-primary">Reset session</a>
 	<?php 		
 		}?>
