@@ -18,24 +18,13 @@ define("FETCH_MODE", PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE);
 
 define("FIRST_DAY_WEEK", "sunday");
 define("DATE_FORMAT", "d/m/Y H:i");
-
+define("DATE_FORMAT_SQL", "'Y-m-d H:i:s'");
 /*
 *	local database
 */
 
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/objects/User.php");
 require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/objects/Event.php");
-
-$admin = new User("Root", "Admin", "admin", "admin", "admin@calendar.en");
-$admin->setId(1);
-$toto = new User("Rolo", "Toto", "toto", "admin", "toto.rolo@calendar.en");
-$toto->setId(2);
-
-$users = array($admin->getUsername() => $admin, $toto->getUsername() => $toto);
-
-$events = array();
-
-$is_local_db = false;
 
 try
 {	
@@ -47,6 +36,6 @@ try
 }
 catch(PDOException $e)
 {
-	echo "Error : Impossible to connect to the database...<br/>";
-	$local_db = true;
+	echo "<div class='alert alert-danger'><p>Error : Impossible to connect to the database...</p></div>";
+	die();
 }

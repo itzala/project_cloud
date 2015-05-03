@@ -13,13 +13,8 @@ if (isset($_POST) && !empty($_POST))
         $_SESSION['user'] = $user;
         header("Location:./index.php");
     }
-    else
-    {
-        echo "<pre>LISTE DES USERS <br/>";
-        var_dump(getAllUsers());
-        echo "</pre>";        
-        echo "ERROR : You are not allowed. Bad credentials.";        
-    }
+    else    
+        echo "<div class='alert alert-danger'><p>ERROR : You are not allowed. Bad credentials./p></div>";
 }
 
 ob_start();

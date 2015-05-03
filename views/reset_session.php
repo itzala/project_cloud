@@ -1,16 +1,11 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/database.php");
 
 session_start();
 
 if (isset($_GET['rd'], $_SESSION['ref_date']) && $_GET['rd'])
 {
 	setReferenceDate();
-}
-
-if (isset($_GET['e']) && $_GET['e'])
-{
-    removeAllEvents();
 }
 
 ob_start();

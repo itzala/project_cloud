@@ -13,7 +13,6 @@ $nb_lines = 24;//count($lines);
 ob_start();
 
 $js = array("js/event");
-//$css = array("css/event");
 
 generate_head("List of event", $js);
 
@@ -21,12 +20,7 @@ $date = new DateTime();
 $current_day = date('w');
 $displayed_events = getDisplayedEvents();
 
-echo "<p> Date de référence : ".$ref_date_formatted."<br/></p>";
-echo "<p> Date du jour : ".date("d/m/Y H:i")." <br/></p>";
-echo "<p> Nombre d'évènements : ".$displayed_events['count']." <br/></p>";
-
-$style_event = 'style="display:inline-block; width:90%; border:1px solid black; text-align:center;"';
-$style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
+$style_event = 'style="display:inline-block; width:90%; border:1px solid black; text-align:center; border-radius:5%"';
 
 ?>
 	<nav>	
@@ -36,7 +30,7 @@ $style_cell = 'style="display:inline-block; width:10%; border:1px solid red;"';
 	<?php }else {?>
 		<a href="./profile.php">Logged as <?php echo $user->getUsername(); ?></a>
 		<a href="./logout.php" class="btn btn-primary">Log out</a>		
-		<a href="./reset_session.php?rd=1&e=1" class="btn btn-primary">Reset session</a>
+		<a href="./reset_session.php?rd=1" class="btn btn-primary">Reset session</a>
 	<?php 		
 		}?>
 	</nav>	

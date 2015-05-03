@@ -16,8 +16,8 @@ class User
 
 	function __construct($lastname, $firstname, $username, $password, $mail)
 	{
-		/*static $count_id = 0;
-		$this->id = $count_id++;*/
+		static $count_id = 0;
+		$this->id = $count_id++;
 		$this->lastname = $lastname;
 		$this->firstname = $firstname;
 		$this->username = $username;
@@ -104,5 +104,10 @@ class User
 	function isValid()
 	{
 		return true;
+	}
+
+	static function getArgsConstructor()
+	{
+		return array("lastname", "firstname", "username", "password", "mail");
 	}
 }

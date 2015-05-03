@@ -54,16 +54,15 @@ if (isset($_POST['mode']) && $_POST['mode'] == "edit")
 			<div class="form-group">
 				<label class="control-label" for="event_guests">Event guest : </label>
 				<select class="form-control" id="event_guests" name="event_guests[]" multiple>
-				<?php
+				<?php $guests = $event->getGuests();
 				$userlogged = getLoggedUser();
-				$guests = $event->getGuests();
-				foreach ($list_users as $username => $user) {
+				foreach ($list_users as $user) {
 					if ($user != $userlogged)
 					{
-						echo '<option value="'.$username. '"';
+						echo '<option value="'.$user->getId(). '"';
 						if (in_array($user, $guests))
 							echo " selected ";
-						echo '">'.$username.'</option>'. "<br/>";
+						echo '">'.$user->getUsername().'</option>'. "\n";
 					}
 				}				
 				?>

@@ -60,12 +60,12 @@ generate_head("Create an event");
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="event_guests">Event guest : </label>
-				<select class="form-control" id="event_guests" name="event_guests[]" multiple="true">					
+				<select class="form-control" id="event_guests" name="event_guests[]" multiple="true">
 				<?php
 				$userlogged = getLoggedUser();
-				foreach ($list_users as $username => $user) {
+				foreach ($list_users as $user) {
 					if ($user != $userlogged)
-						echo '<option value="'.$username.'">'.$username.'</option>'. "<br/>";
+						echo '<option value="'.$user->getId().'">'.$user->getUsername().'</option>'. "\n";
 				}
 				?>
 				</select>

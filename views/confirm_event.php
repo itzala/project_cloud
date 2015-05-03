@@ -10,17 +10,17 @@ isLogged();
 ob_start();
 generate_head("Confirm event");
 $new_event = addEvent($_POST);
-$list_events = getAllEvents();
+//$list_events = getAllEvents();
 ?>
 <section>
 		<div class="col-lg-6 col-lg-offset-3">
 		<label>List of events</label>	
 		<ul>
 			<?php 
-				foreach ($list_events as $event) {
-					echo '<li>event #<a href="./info_event.php?e='. $event->getId().'">"'
-					 .$event->getId(). '"</a> => '.$event->getName().'</li>';
-				}
+				// foreach ($list_events as $event) {
+				// 	echo '<li>event <a href="./info_event.php?e='. $event->getId().'">#"'
+				// 	 .$event->getId(). '"</a> => '.$event->getName().'</li>';
+				// }
 			?>
 		</ul>
             <section>

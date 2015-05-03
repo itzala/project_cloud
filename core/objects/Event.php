@@ -16,20 +16,15 @@ class Event
 	private $date_event;
 	private $description;
 
-	function __construct($name, $owner, $date_event, $description = "", $guests = array())
-	{
-		echo "<pre>";
-		var_dump($owner);
-		echo "</pre>";
+	function __construct($name, $owner, $date_event, $date_created, $description = "", $guests = array())
+	{		
 		$this->id = NULL;
 		$this->name = $name;
 		$this->owner = $owner;
 		$this->guests = $guests;
-		if (!is_a($date_event, "DateTime"))
-			$date_event = DateTime::createFromFormat(DATE_FORMAT, $date_event);
-		$this->date_event = $date_event;
-		$this->description = $description;		
-		$this->date_created = new DateTime();
+		$this->setDateEvent($date_event);
+		$this->description = $description;
+		$this->setDateCreated($date_created);		
 	}
 
 	/*
@@ -53,6 +48,8 @@ class Event
 
 	function getGuests()
 	{
+		if (is_string($this->guests))
+			$this->guests = unserialize($this->guests);
 		return $this->guests;
 	}
 
@@ -92,6 +89,8 @@ class Event
 
 	function setGuests($guests)
 	{
+		if (is_string($guests))
+			$guests = unserialize($guests);
 		$this->guests = $guests;
 	}
 
@@ -108,8 +107,37 @@ class Event
 	}
 
 	function setDateEvent($date_event)
-	{
-		$this->date_event = $date_event;
+	{		
+		if (is_string($date_event) && $date_event != "date_event")
+		{
+			$mask = (strpos($date_event, SEPARATOR_DATE) !== false) ? DATE_FORMAT : DATE_FORMAT_SQL;
+			$date = DateTime::createFromFormat($mask, $date_event);
+			if (!$date)
+				$this->date_event = new DateTime();
+			else				
+				$this->date_event = $date;
+		}
+		else if (is_a($date_event, 'DateTime'))
+			$this->date_event = $date_event;
+		else
+			$this->date_event = new DateTime();
+	}
+
+	function setDateCreated($date_created)
+	{		
+		if (is_string($date_created) && $date_created != "date_created")
+		{
+			$mask = (strpos($date_created, SEPARATOR_DATE) !== false) ? DATE_FORMAT : DATE_FORMAT_SQL;
+			$date = DateTime::createFromFormat($mask, $date_created);
+			if (!$date)
+				$this->date_created = new DateTime();
+			else				
+				$this->date_created = $date;
+		}
+		else if (is_a($date_created, 'DateTime'))
+			$this->date_created = $date_created;
+		else
+			$this->date_created = new DateTime();
 	}
 
 	function setDescription($description)
@@ -125,5 +153,10 @@ class Event
 		isEmpty($this->description);		
 
 		return true;
+	}
+
+	static function getArgsConstructor()
+	{
+		return array("name", "owner", "date_event", "date_created", "description", "guests");
 	}
 }
