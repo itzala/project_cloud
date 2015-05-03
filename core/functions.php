@@ -149,7 +149,7 @@ function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
     }else if(strlen($lastname) > 32){
         $errors[] = 'Last name is too long';
     }else if (!preg_match("/^[a-zA-Z ]*$/",$lastname)) {
-        $errors[] = "Last name: only letters and white space allowed";
+        $errors[] = "Last name: only letters, numbers and white space allowed";
     }
 
     // First name verification
@@ -160,7 +160,7 @@ function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
     }else if(strlen($firstname) > 32){
         $errors[] = 'First name is too long';
     }else if (!preg_match("/^[a-zA-Z ]*$/",$firstname)) {
-        $errors[] = "First name: only letters and white space allowed";
+        $errors[] = "First name: only letters, numbers and white space allowed";
     }
     // Username verification
     if(empty($username)) {
@@ -170,7 +170,7 @@ function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
     }else if(strlen($username) > 32){
         $errors[] = 'Username is too long';
     }else if (!preg_match("/^[a-zA-Z0-9]*$/",$username)) {
-        $errors[] = "Only letters and white space allowed";
+        $errors[] = "Username: only letters, numbers and white space allowed";
     }
     if (isValidUsername($username)){
         $errors[] = 'Username is already used';

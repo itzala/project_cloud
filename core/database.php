@@ -263,7 +263,7 @@ function updateEvent($event, $datas)
     else
     {
         $req = $bdd->prepare('UPDATE EVENT 
-            SET name = :name", date_event = :date", guests = :guests", description = :description
+            SET name = :name, date_event = :date_event, guests = :guests, description = :description
             WHERE id = :id');
 
         $req->execute(array('id' => $event->getId(), 'name' => $datas['name_event'], 
