@@ -149,7 +149,7 @@ function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
     }else if(strlen($lastname) > 32){
         $errors[] = 'Last name is too long';
     }else if (!preg_match("/^[a-zA-Z ]*$/",$lastname)) {
-        $errors[] = "Last name: only letters, numbers and white space allowed";
+        $errors[] = "Last name: only letters and white space allowed";
     }
 
     // First name verification
@@ -159,8 +159,8 @@ function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
         $errors[] = 'First name is too short';
     }else if(strlen($firstname) > 32){
         $errors[] = 'First name is too long';
-    }else if (!preg_match("/^[a-zA-Z ]*$/",$firstname)) {
-        $errors[] = "First name: only letters, numbers and white space allowed";
+    }else if(!preg_match("/^[a-zA-Z ]*$/",$firstname)) {
+        $errors[] = "First name: only letters and white space allowed";
     }
     // Username verification
     if(empty($username)) {
@@ -169,7 +169,7 @@ function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
         $errors[] = 'Username is too short';
     }else if(strlen($username) > 32){
         $errors[] = 'Username is too long';
-    }else if (!preg_match("/^[a-zA-Z0-9]*$/",$username)) {
+    }else if(!preg_match("/^[a-zA-Z0-9]*$/",$username)) {
         $errors[] = "Username: only letters, numbers and white space allowed";
     }
     if (isValidUsername($username)){
@@ -179,14 +179,14 @@ function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
     // Pass verification
     if(empty($pass) || empty($pass2)){
         $errors[] = 'pass is empty';
-    } else if ($pass != $pass2){
+    }else if($pass != $pass2){
         $errors[] = 'Invalid password';
     }
 
     // Mail verification
     if(empty($mail)) {
         $errors[] = 'mail is empty';
-    } else if (!isMailValid($mail)){
+    }else if(!isMailValid($mail)){
         $errors[] = 'Invalid mail';
     }
 

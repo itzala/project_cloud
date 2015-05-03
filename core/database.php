@@ -168,8 +168,8 @@ function addEvent($datas)
     					":owner" => $new_event->getOwner()->getId(),
     					":guests" => serialize($guests),
     					":date_created" => $new_event->getDateCreated(),
-    					":date_event" => $new_event->getDateEvent()),
-    					":description" => $new_event->getDescription() ));
+    					":date_event" => $new_event->getDateEvent(),
+    					":description" => $new_event->getDescription()));
         $req->closeCursor();
     }
 
