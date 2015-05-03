@@ -117,12 +117,6 @@ function getLoggedUser()
 *   Control events
 */
 
-function getEventsSession()
-{
-    return isset($_SESSION['events']) ? $_SESSION['events'] : array();
-}
-
-
 // Function which verify data in the form before create a new user
 function registration($lname, $fname, $uname, $pas, $pas2 ,$email){
 

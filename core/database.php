@@ -6,36 +6,6 @@ require_once($_SERVER['DOCUMENT_ROOT']."/project_cloud/core/config.php");
 *		USER PART
 */
 
-function getAllUsers()
-{
-    global $users;
-    return $users;
-
-    $bdd->query('SELECT username FROM USER');
-}
-
-function isRegistered($username, $password){
-    global $users;    
-    if (isset($users[$username]) && $users[$username]->getPassword() == $password)
-        return $users[$username];
-    return NULL;
-
-    /* Faut peut être encrypter le pass pour la vérif, je sais pas comment il arrive dans la fonction
-    $req = $bdd->prepare('SELECT username, password FROM USER 
-    WHERE username = :uname AND password <= :pass');
-
-    $req->execute(array('uname' => $username, 'pass' => $password));
-    */
-}
-
-
-function testInput($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
 function loadUsersInSession()
 {
     if (!isset($_SESSION['bd_users']))
@@ -47,6 +17,21 @@ function loadUsersInSession()
     /*Du coup on a plus besoin de cette fonction ?*/
 }
 
+function testInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+function getAllUsers()
+{
+    global $users;
+    return $users;
+
+    // $bdd->query('SELECT username FROM USER');
+}
+
 function newUser($lname, $fname, $uname, $pas, $email){
     $lastname = testInput($lname);
     $firstname = testInput($fname);
@@ -54,19 +39,16 @@ function newUser($lname, $fname, $uname, $pas, $email){
     $pass = encryptPassword($pas);
     $mail = testInput($email);
     $user = new User($lastname, $firstname, $username, $pass, $mail);
-
-    if ($local_db)
-    {
-
-    }
     global $users;
     $users[] = $username;
-
-
+    //echo $user->getAll();
     echo $users->getAllUsers;
+
+    // $req = $bdd->prepare('INSERT INTO USER (lastname, firstname, username, password, mail)
+    // VALUES (:lastname, :firstname, :username, :pass, :mail);
+
+    // $req->execute(array('lastname' => $lastname, 'firstname' => $firstname, 'username' => $username, 'pass' => $pass, 'mail' => $mail));
 }
-
-
 
 /*
 *		EVENT PART
@@ -79,8 +61,29 @@ function loadEventsInSession()
         global $events;
         $_SESSION['events'] = $events;
     }
+}
 
-    /*Du coup on a plus besoin de cette fonction ?*/
+
+function getEventsSession()
+{
+    return isset($_SESSION['events']) ? $_SESSION['events'] : array();
+}
+
+function getAllEvents($filters = array())
+{
+    $events = getEventsSession();
+
+    // $lists = array();
+
+    // foreach ($events as $event) {
+
+    // }
+
+    return $events;
+
+    /*
+        $bdd->query('SELECT * FROM EVENT');
+    */
 }
 
 function addEvent($datas)
@@ -119,21 +122,67 @@ function addEvent($datas)
     return $new_event;
 }
 
-function getAllEvents($filters = array())
+function getEventById($id)
 {
-    $events = getEventsSession();
+    return isset($_SESSION['events'][$id]) ? $_SESSION['events'][$id] : null;
 
-    // $lists = array();
+    
+        // $req = $bdd->prepare('SELECT * FROM EVENT WHERE id = :id');
 
-    // foreach ($events as $event) {
+        // $req->execute(array('id' => $id));    
+}
 
+function removeEvent($id)
+{    
+    $id = intval($id);
+    if (isset($_SESSION['events'][$id]))
+        unset($_SESSION['events'][$id]);
+
+    // $req = $bdd->prepare('DELETE FROM EVENT 
+    //     WHERE id = :id');
+
+    // $req->execute('id', $id);
+}
+
+function removeAllEvents()
+{
+    $_SESSION['events'] = array();
+
+    // Useless ?
+}
+
+function updateEvent($event, $datas)
+{
+    $users = getAllUsers();
+
+    $event->setName($datas['name_event']);
+    $event->setDateEvent($datas['date_event']);
+    $event->setDescription($datas['event_description']);
+    if (isset($datas['event_guests']))
+    {
+        foreach ($datas['event_guests'] as $username) {
+            $guests[] = $users[$username];
+        }
+    }
+    $event->setGuests($guests);
+
+    $_SESSION['events'][$event->getId()] = $event;
+
+    return $event;
+
+
+    // if (isset($datas['event_guests']))
+    // {
+    //     foreach ($datas['event_guests'] as $username) {
+    //         $guests[] = $users[$username];
+    //     }
     // }
 
-    return $events;
+    // $req = $bdd->prepare('UPDATE EVENT 
+    //     SET name = :name, date_event = :date, guests = :guests, description = :description
+    //     WHERE id = :id');
 
-    /*
-        $bdd->query('SELECT * FROM EVENT');
-    */
+    // $req->execute(array('id' => $_GET['e'], 'name' => $datas['name_event'], 'date_event => '$datas['date_event'], 'guests' => $guests, 'description' => $datas['event_description']));
 }
 
 function getDisplayedEvents()
@@ -163,47 +212,4 @@ function getDisplayedEvents()
     /* En fait j'ai rien compris à ce que tu voulais ici
         $events = $all_events->fetch();
     */
-}
-
-function getEventById($id)
-{
-    return isset($_SESSION['events'][$id]) ? $_SESSION['events'][$id] : null;
-
-    
-        $req = $bdd->prepare('SELECT * FROM EVENT WHERE id = :id');
-
-        $req->execute(array('id' => $id));    
-}
-
-function removeEvent($id)
-{    
-    $id = intval($id);
-    if (isset($_SESSION['events'][$id]))
-        unset($_SESSION['events'][$id]);
-}
-
-function removeAllEvents()
-{
-    $_SESSION['events'] = array();
-}
-
-
-function updateEvent($event, $datas)
-{
-    $users = getAllUsers();
-
-    $event->setName($datas['name_event']);
-    $event->setDateEvent($datas['date_event']);
-    $event->setDescription($datas['event_description']);
-    if (isset($datas['event_guests']))
-    {
-        foreach ($datas['event_guests'] as $username) {
-            $guests[] = $users[$username];
-        }
-    }
-    $event->setGuests($guests);
-
-    $_SESSION['events'][$event->getId()] = $event;
-
-    return $event;
 }
